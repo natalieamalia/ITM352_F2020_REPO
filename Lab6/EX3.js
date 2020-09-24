@@ -4,4 +4,4 @@ m = 2;
 
 result = n * m++;
 
-console.log(n.m);
+console.log(result, n , m);
