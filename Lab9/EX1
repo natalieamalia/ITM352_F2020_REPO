@@ -1,0 +1,23 @@
+> month  = 4
+4
+> day = 9
+9
+> year = 2000
+2000
+> step1 = 00
+0
+> step2 = step1/4
+0
+> step2 = parseInt(step1/4)
+0
+> step3 = step2 + step1;
+0
+> step4 = 6
+6
+> step6 = step4 + step3
+6
+> step7 = step6 + day
+15
+> step8 = step7
+15
+>
