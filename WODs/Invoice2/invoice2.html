@@ -1,34 +1,33 @@
 <script>
-/*
-An invoice of the sales of five different products.
-/*
+  /* This creates and displays a sales invoice from product sales data
+  */
+ //Product data
 
-//Product data
+ //Product 1
+ var item = 'Gillete Sensor 3 Razor'
+ var quantity1 = 2;
+ var price1 = 1.23;
 
-// Product 1
-    var item1 = 'Hot Cheetos';
-     var quantity1 = 2;
-     var price1 = 4.23;
+ //Product 2
+ var item = 'Shaving Cream'
+ var quantity1 = 1;
+ var price1 = 2.64;
 
-// Product 1
-    var item2 = 'Takis';
-     var quantity1 = 3;
-     var price1 = 3.25;
+ //Product 3
+ var item = 'Cologne'
+ var quantity1 = 1;
+ var price1 = 6.17;
 
-// Product 1
-    var item3 = 'Doritos';
-     var quantity1 = 5;
-     var price1 = 4.33;
+ //Product 4
+ var item = 'Rubbing Alcohol'
+ var quantity1 = 3;
+ var price1 = 0.98;
 
-// Product 1
-    var item4 = 'Kettle Potato Chips';
-     var quantity1 = 6;
-     var price1 = 3.75;
+ //Product 5
+ var item = 'Colgate Toothbrush'
+ var quantity1 = 12;
+ var price1 = 1.89;
 
-// Product 5
-    var item1 = 'Pringles';
-     var quantity1 = 4;
-     var price1 = 2.67;
 //Compute extended prices
 var extended_price1 = quantity1*price1;
 var extended_price2 = quantity2*price2;
@@ -43,10 +42,23 @@ var subtotal = extended_price1 + extended_price2 + extended_price3 + extended_pr
 var tax_rate = 0.0575;
 var tax = tax_rate*subtotal;
 
+//Compute shipping
+if(subtotal <= 50){
+  shipping = 2
+}
+else if(subtotal <= 100) {
+  shipping = 5
+}
+else {
+  shiping = 0.05*subtotal // 5% of subtotal
+}
+
 //Compute grand total
-var total = subtotal + tax;
+var total = subtotal + tax + shipping;
+
 
 </script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,7 +84,7 @@ var total = subtotal + tax;
             <td width="13%">\$${price1}</td>
             <td width="54%">\$${extended_price1}</td>
           </tr>
-              `);
+          `);
             
             //product row 2
               document.write(`
@@ -117,8 +129,12 @@ var total = subtotal + tax;
             <td width="54%"><script>document.write(subtotal);</script></td>
           </tr>
           <tr>
-            <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @ 5.75%</span></td>
+            <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @ <script>document.write(100*tax_rate);</script>%</span></td>
             <td width="54%"><script>document.write(tax.toFixed(2));</script></td>
+          </tr>
+          <tr>
+            <td style="text-align: center;" colspan="3" width="67%"><span>Shipping</span></td>
+            <td width="54%"><script>document.write(shipping.toFixed(2));</script></td>
           </tr>
           <tr>
             <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
@@ -126,5 +142,12 @@ var total = subtotal + tax;
           </tr>
         </tbody>
       </table>  
+<div>
+<br><b>
+OUR SHIPPING POLICY IS:A subtotal $0 - $49.99 will be $2 shipping
+A subtotal $50 - $99.99 will be $5 shipping
+Subtotals over $100 will be charged 5% of the subtotal amount.
+</b>
+</div>
 </body>
 </html>
