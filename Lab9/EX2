@@ -1,0 +1,14 @@
+Will keep robot moving forever:
+While(true) {
+If(Move.Forward() == false) {
+    Move.turn();
+} else {
+    Move.Forward();
+}
+}
+Not getting stuck:
+If(Move.Forward() == false) {
+    Move.turn();
+} else {
+    Move.Forward();
+}
