@@ -2,41 +2,37 @@
   /* This creates and displays a sales invoice from product sales data
   */
  //Product data
-
+ //quantities for product1, product2, etc.
+var product_quantities = [null,0,1,1,3,12];
  //Product 1
  var product1 = {
    'name': 'Gillete Sensor 3 Razor',
-   "quantity": 2,
    'price':1.23
    'SKU#': 1234
  };
 
  //Product 2
  var item = 'Shaving Cream'
- var quantity1 = 1;
  var price1 = 2.64;
 
  //Product 3
  var item = 'Cologne'
- var quantity1 = 1;
  var price1 = 6.17;
 
  //Product 4
  var item = 'Rubbing Alcohol'
- var quantity1 = 3;
  var price1 = 0.98;
 
  //Product 5
  var item = 'Colgate Toothbrush'
- var quantity1 = 12;
  var price1 = 1.89;
 
 //Compute extended prices
-var extended_price1 = product1.quantity*product1.price;
-var extended_price2 = quantity2*price2;
-var extended_price3 = quantity3*price3;
-var extended_price4 = quantity4*price4;
-var extended_price5 = quantity5*price5;
+var extended_price1 = product_quantities[1]*product1['price'];
+var extended_price2 = product_quantities[2]*price2;
+var extended_price3 = product_quantities[3]*price3;
+var extended_price4 = product_quantities[4]*price4;
+var extended_price5 = product_quantities[5]*price5;
 
 //Compute Subtotal
 var subtotal = extended_price1 + extended_price2 + extended_price3 + extended_price4 + extended_price5;
@@ -71,7 +67,7 @@ var total = subtotal + tax;
               document.write(`
               <tr>
             <td width="43%">${product1.name}</td>
-            <td align="center" width="11%">${product1.quantity}</td>
+            <td align="center" width="11%">${product_quantities[1]}</td>
             <td width="13%">\$${product1.price}2.46</td>
             <td width="54%">\$${extended_price1}</td>
           </tr>
@@ -83,7 +79,7 @@ var total = subtotal + tax;
             <td width="43%">${item2}</td>
             <td align="center" width="11%">${quantity2}</td>
             <td width="13%">\$${price2}</td>
-            <td width="54%">\$${extended_price2}2.46</td>
+            <td width="54%">\$${extended_price2}</td>
           </tr>
               `);
           //product row 3
@@ -92,7 +88,7 @@ var total = subtotal + tax;
             <td width="43%">${item3}</td>
             <td align="center" width="11%">${quantity3}</td>
             <td width="13%">\$${price1}</td>
-            <td width="54%">\$${extended_price3}2.46</td>
+            <td width="54%">\$${extended_price3}</td>
           </tr>
               `);
           //product row 4
@@ -101,7 +97,7 @@ var total = subtotal + tax;
             <td width="43%">${item4}</td>
             <td align="center" width="11%">${quantity4}</td>
             <td width="13%">\$${price4}</td>
-            <td width="54%">\$${extended_price4}2.46</td>
+            <td width="54%">\$${extended_price4}</td>
           </tr>
               `);
           //product row 5
@@ -110,7 +106,7 @@ var total = subtotal + tax;
             <td width="43%">${item5}</td>
             <td align="center" width="11%">${quantity5}</td>
             <td width="13%">\$${price5}</td>
-            <td width="54%">\$${extended_price5}2.46</td>
+            <td width="54%">\$${extended_price5}</td>
           </tr>
               `);
           </script>
