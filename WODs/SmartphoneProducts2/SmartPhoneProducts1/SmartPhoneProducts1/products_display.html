@@ -1,4 +1,5 @@
 <script>
+
 num_items = 5
 //Product1
 var brand1 = "HTC";
@@ -38,14 +39,14 @@ var brand2 = "Apple";
   <div><main>
 
 <script>
-    for(i=1; i<=num_items; i++) {
+{
 document.write (`
     <section class="item">
     <h2>${eval(`brand` + i)}</h2>
     <p>${eval(`price` + i)}</p>
     <img src="${eval(`image` + i)}"
 </section>
-`);
+`),
 }
 </script>
 </main></div>

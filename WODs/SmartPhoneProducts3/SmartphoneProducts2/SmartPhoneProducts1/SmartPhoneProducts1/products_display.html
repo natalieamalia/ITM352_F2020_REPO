@@ -1,0 +1,132 @@
+<table border="2">
+    <tbody>
+    <tr>
+        <th style="text align: center;" width="43%">Item</th>
+        <th style="text align: center;" width="11%">quantity</th>
+        <th style="text align: center;" width="13%">price</th>
+        <th style="text align: center;" width="54">extended price</th>
+    </tr>
+    <tr>
+        <td width="43%">Apple</td>
+        <td align="center" width="11%">1</td>
+        <td width="13%">$75</td>
+        <td width="54%">$75</td>
+    </tr>
+    <tr>
+        <td width="43%">Nokia</td>
+        <td align="center" width="11%">2 </td>
+        <td width="13%">$45</td>
+        <td width="54%">$135</td>
+    </tr>
+    <tr>
+        <td width="43%">Blackberry</td>
+        <td align="center" width="11%">4 </td>
+        <td width="13%">$10</td>
+        <td width="54%">$40</td>
+    </tr>
+    <tr>
+        <td colspan="4" width="100%">&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;" colspan="3" width="67%">Sub-total</td>
+        <td width="54%">$320.00</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @5.75%</span></td>
+        <td width="54%">$18.40</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;" colspan="3" width="67%">Shipping</td>
+        <td width="54%">$16.00</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
+        <td width="54%"><strong>$354.40</strong></td>
+    </tr>
+    </tbody>
+</table>
+<script>
+num_items = 5
+//Product1
+brand1 : "HTC",
+    price1 ; 300.00,
+    image1 ; "http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg">
+
+//Product2
+    brand2 ; "Apple";
+    price2 ; 1000.00;
+    image2 ; "http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg"> 
+
+//Product3
+    brand3 ; "Nokia";
+    price3 ; 45.00;
+    image3 ; "http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg">
+
+//Product4
+    brand4 ; "Samsung";
+    price4 ; 600.00;
+    image4 ; "http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg">
+
+//Product5
+    brand5 ; "Blackberry"
+    price5 ; 450.00;
+    image5 ; "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg">
+//Product Array
+[
+products_array =
+arrayLength = myArray.length,
+//Product1
+    brand1 = "HTC",
+    price1 = 300.00,
+    image1 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg">
+
+//Product2
+    brand2 , "Apple",
+    price2 = 1000.00,
+    image2 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg"> 
+
+//Product3
+    brand3 , "Nokia",
+    price3 = 45.00,
+    image3 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg">
+
+//Product4
+    brand4 , "Samsung",
+    price4 = 600.00,
+    image4 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg">
+
+//Product5
+    brand5 , "Blackberry",
+    price5 = 450.00,
+    image5 = "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg">
+    
+products_array 
+]
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="./productstyle.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartphone Products</title>
+</head>
+<body>
+  <header>Used Smartphone Store</header>
+  <div><main>
+
+<script>
+    for(i=1; i<=num_items; i++) {
+document.write (`
+    <section class="item">
+    <h2>${eval(`brand` + i)}</h2>
+    <p>${eval(`price` + i)}</p>
+    <img src="${eval(`image` + i)}"
+</section>
+`);
+}
+</script>
+</main></div>
+<footer>Your One Stop Phone Stop!</footer>
+</body>
+</html>
