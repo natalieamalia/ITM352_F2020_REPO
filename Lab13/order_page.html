@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script>
+let params = (new URL(document.location)).searchParams;
+GET = {};
+params.forEach(function (value, key) { GET[key] = value });
+
+function CheckisNonNegIntString
+/* This function returns true string_to_check is a non-negative integer. 
+*/
+(string_to_check, returnErrors=false) {
+    errors = []; // assume no errors at first
+    if(Number(string_to_check) != string_to_check) errors.push('Not a number!');
+    } // Check if string is a number value
+    if(string_to_check < 0) errors.push('Negative value!'); // Check if it is non-negative
+        if(parseInt(string_to_check) != string_to_check) errors.push('Not an integer!');// Check that it is an integer
+    return returnErrors ? errors : (errors.length == 0);
+attributes = "Natalie;20;20.5;" +(0.5 - 20)
+pieces = attributes.split(";")
+function callback (part, i) {
+    console.log (`${part} is non neg int ${isNonNegInt(part, true).join("***")}`);
+}
+pieces.forEach(function (item, i)
+{
+    console.log( (typeof item == 'string' && item.length > 0)?true:false )});
+
+function checkQuantityTextbox(){
+        quantity_textbox_message.innerHTML= CheckisNonNegIntString(quantity_textbox.value, true).join (" ");
+    }
+function displayPurchases() {
+    purchase_qty = GET['quantity_textbox'];
+    if (isNonNegInt(purchase_qty)) {
+        document.getElementById('the_body').innterHTML = `Thank you for ordering ${purchase_qty} items!`;
+    } else {
+        checkQuantityTextbox();
+    }
+}
+
+if (typeof GET["submit_button"] != 'undefined') {
+    displayPurchases()
+}
+</script>
+</head>
+<body id="the_body">
+<form name="quantity_form" action="select" method= "POST" id="form" class="form">
+    <span id='qty_textbox_message'>Select a quantity</span>
+    <fieldset>
+    <select name="quantity">
+        <option value="Option 1">20</option>
+        <option value="Option 2">50</option>
+        <option value="Option 3">100</option>
+    </select>
+    <select name="Options" id="Options"></select>
+</fieldset>
+<input type="button" input value="Enter">
+    <br>
+</form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+[
+    {
+    "brand": "Minami Surfboards",
+    "name": "The Blaze",
+    "price": 500.00,
+    "image": 
+    },
+    {
+        "brand": "Lost Surfboards",
+        "name": "Rad Ripper",
+        "price": 700.00,
+        "image": 
+    },
+    {   "brand": "Tokoro Surfboards",
+        "name": "",
+        "price": 455.00,
+        "image": 
+    },
+    {
+        "brand": "Firewire Surfboards",
+        "name": "No Brainer",
+        "price": 870.00,
+        "image": 
+    }
+    {
+        "brand": "Pyzel Surfboards",
+        "name": "Ghost",
+        "price": 650.00,
+        "image": 
+    },
+]

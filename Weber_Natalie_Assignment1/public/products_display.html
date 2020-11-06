@@ -1,0 +1,68 @@
+<script>
+    /* This creates and displays a sales invoice called sales data */
+
+    [
+    {
+    "brand": "Minami Surfboards",
+    "name": "The Blaze",
+    "price": 500.00,
+    "image": 
+    },
+    {
+        "brand": "Lost Surfboards",
+        "name": "Rad Ripper",
+        "price": 700.00,
+        "image": 
+    },
+    {   "brand": "Tokoro Surfboards",
+        "name": "",
+        "price": 455.00,
+        "image": 
+    },
+    {
+        "brand": "Firewire Surfboards",
+        "name": "No Brainer",
+        "price": 870.00,
+        "image": 
+    }
+    {
+        "brand": "Pyzel Surfboards",
+        "name": "Ghost",
+        "price": 650.00,
+        "image": 
+    },
+];
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="./productstyle.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surfboard Products</title>
+</head>
+<body>
+  <header>Natalie's Surf Store</header>
+  <form action="./process_form" method+"POST">
+  <div>
+<main>
+<script>
+for (i=0; i< products.length; i++) {
+    document.write(`
+    <section class="item">
+    <h2>${products[i].name}</h2>
+    <p>${products[i].price}</p>
+    <label>Quantity</label>
+    <input type="text" placeholder="0" name="quantity${i}">
+    <img src="./images/${products[i].image}">
+</section>
+`);
+}
+</script>
+</main>
+</form>
+</div>
+</form>
+<input type="submit" value="Purchase">
+</body>
+</html>
