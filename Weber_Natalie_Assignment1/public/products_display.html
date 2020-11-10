@@ -1,68 +1,78 @@
-<script>
-    /* This creates and displays a sales invoice called sales data */
-
-    [
-    {
-    "brand": "Minami Surfboards",
-    "name": "The Blaze",
-    "price": 500.00,
-    "image": 
-    },
-    {
-        "brand": "Lost Surfboards",
-        "name": "Rad Ripper",
-        "price": 700.00,
-        "image": 
-    },
-    {   "brand": "Tokoro Surfboards",
-        "name": "",
-        "price": 455.00,
-        "image": 
-    },
-    {
-        "brand": "Firewire Surfboards",
-        "name": "No Brainer",
-        "price": 870.00,
-        "image": 
-    }
-    {
-        "brand": "Pyzel Surfboards",
-        "name": "Ghost",
-        "price": 650.00,
-        "image": 
-    },
-];
+<script src="./product_data.js" type="text/javascript">
 </script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="./productstyle.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surfboard Products</title>
+    <title>Natalie's Surfboard Store</title>
+    <link rel="stylesheet" href="products-style.css">
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Times New Roman', 'Serif';
+            color: lightcyan;
+        }
+    </style>
 </head>
 <body>
-  <header>Natalie's Surf Store</header>
-  <form action="./process_form" method+"POST">
-  <div>
-<main>
-<script>
-for (i=0; i< products.length; i++) {
-    document.write(`
-    <section class="item">
-    <h2>${products[i].name}</h2>
-    <p>${products[i].price}</p>
-    <label>Quantity</label>
-    <input type="text" placeholder="0" name="quantity${i}">
-    <img src="./images/${products[i].image}">
-</section>
-`);
-}
-</script>
-</main>
-</form>
-</div>
-</form>
-<input type="submit" value="Purchase">
+    <form name="product_main_display" action="/process_purchase" method="POST">
+    <div>
+    <main>
+    <script>
+     for (i = 0; i < products.length; i++) {
+        document.write(`
+        <section class="item">
+        <h2>${products[i].name}</h2>
+        <br><img src="${products[i].image}">
+        <p>$${products[i].price}</p>
+        <label id="quantity${i}_label"}">Quantity</label>
+        <input type="text" placeholder="0" name="quantity${i}" 
+        onkeyup="checkQuantityTextbox(this);">
+        </section>
+        `);
+        }      
+        </script>
+        </main>
+        </div>
+        <footer>
+        <input type="submit" value="Purchase!" name="submitPurchase">
+        </footer>
+    </form>
 </body>
 </html>
+
+<script>
+    function isNonNegInt(val, returnErrors) {
+        /* This function returns true if value is a non-negative integer.*/
+        errors = []; // assume no errors at first
+        if (Number(val) != val) errors.push('Not a number!'); // Check if string is a number value
+        if (val < 0) errors.push('Negative value!'); // Check if it is non-negative
+        if (parseInt(val) != val) errors.push('Not an integer!'); // Check that it is an integer
+        return returnErrors ? errors : ((errors.length == 0) ? false : true);
+    }
+    function checkQuantityTextbox(theTextbox) {
+        errs = isNonNegInt(theTextbox.value, true);
+        if (errs.length == 0) errs = ['You want:']; 
+        if (theTextbox.value.trim() == '') errs = ['Quantity'];
+        document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+    }
+    window.onload = function () {
+        let params = (new URL(document.location)).searchParams;
+        if (params.has('submitPurchase')) {
+        has_errors = false; // assumes quantities have no errors
+        total_qty = 0;
+        //Displays name, image, and price for each product
+        for (i = 0; i < products.length; i++) {
+        if (params.has(`quantity${i}`)) { a_qty = params.get(`quantity${i}`);
+            product_form[`quantity${i}`].value = a_qty;
+            total_qty += a_qty;
+        if (!isNonNegInt(a_qty)) {
+            has_errors = true; // invalid quantity
+            checkQuantityTextbox(product_form[`quantity${i}`]); // points out the error 
+        }
+                }
+        }
+    }
+}
+</script>

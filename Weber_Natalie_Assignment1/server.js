@@ -26,7 +26,6 @@ function isNonNegInteger(q, returnErrors = false) {
     if(q < 0) errors.push('Negative value!'); // Checks if it is non-negative
     if(parseInt(q) != q) errors.push('Not an integer!'); // Checks if it is an integer
     return returnErrors ? errors : (errors.length == 0);
-}
 
 function process_quantity_form (POST, response) {
     if (typeof POST [`purchase_submit_button`] != 'undefined') {
