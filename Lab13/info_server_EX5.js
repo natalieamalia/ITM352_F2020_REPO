@@ -8,10 +8,25 @@ var products = data.products;
 
 app.use(express.static('./public'));
 app.use(myParser.urlencoded({ extended: true }));
-function process_quantity_form(POST, response) {
-    let model = products[0]['model'];
-    let model_price = products[0]['price'];
-
+function process_quantity_form (POST, response) {
+    if (typeof POST['purchase_submit_button'] != 'undefined') {
+       var contents = fs.readFileSync('./views/display_quantities_template.view', 'utf8');
+       receipt = '';
+       for(i in products) { 
+        let q = POST[`quantity_textbox${i}`];
+        let model = products[i]['model'];
+        let model_price = products[i]['price'];
+        if (isNonNegInt(q)) {
+          receipt += eval('`' + contents + '`'); // render template string
+        } else {
+          receipt += `<h3><font color="red">${q} is not a valid quantity for ${model}!</font></h3>`;
+        }
+      }
+      response.send(receipt);
+      response.end();
+    }
+ }
+ 
     if (typeof POST['quantity_textbox'] != 'undefined') {
         let q = POST['quantity_textbox'];
         if (isNonNegInt(q)) {
@@ -21,8 +36,6 @@ function process_quantity_form(POST, response) {
             response.send(`${q} is not a quantity!`);
         }
     }
-
-}
 
 app.all('*', function (request, response, next) {
     console.log(request.method + ' to path ' + request.path);

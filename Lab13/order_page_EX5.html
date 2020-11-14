@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<script>
+    <script src="./product_data.js"></script>. 
+</head>
+
+<body>
+    <script>
 let params = (new URL(document.location)).searchParams;
 GET = {};
 params.forEach(function (value, key) { GET[key] = value });
@@ -28,36 +32,31 @@ pieces.forEach(function (item, i)
 {
     console.log( (typeof item == 'string' && item.length > 0)?true:false )});
 
-function checkQuantityTextbox(){
-        quantity_textbox_message.innerHTML= CheckisNonNegIntString(quantity_textbox.value, true).join (" ");
-    }
-function displayPurchases() {
-    purchase_qty = GET['quantity_textbox'];
-    if (isNonNegInt(purchase_qty)) {
-        document.getElementById('the_body').innterHTML = `Thank you for ordering ${purchase_qty} items!`;
-    } else {
-        checkQuantityTextbox();
-    }
-}
+    function checkQuantityTextbox(theTextbox) {
+            errs = isNonNegInt(theTextbox.value, true);
+            document.getElementById(theTextbox.name + '_message').innerHTML = errs.join(", ");
+        }
 
-if (typeof GET["submit_button"] != 'undefined') {
-    displayPurchases()
+function displayPurchases() {
+    userInput = quantity_textbox.value;
+    if (isNonNegInt(userInput)) {
+        document.write(`Thank you for purchasing ${userInput} awesome things!`);
+    
+    }
 }
 </script>
-</head>
-<body id="the_body">
-<form name="quantity_form" action="select" method= "POST" id="form" class="form">
-    <span id='qty_textbox_message'>Select a quantity</span>
-    <fieldset>
-    <select name="quantity">
-        <option value="Option 1">20</option>
-        <option value="Option 2">50</option>
-        <option value="Option 3">100</option>
-    </select>
-    <select name="Options" id="Options"></select>
-</fieldset>
-<input type="button" input value="Enter">
-    <br>
-</form>
+<form name='quantity_form' action="http://localhost:8080/process_form" method="POST">
+    <script>
+    for (i in products) {
+        document.write(`<h3>${products[i]["model"]} at \$${products[i]["price"]}</h3>`);
+        document.write(`
+        <label for="quantity_textbox">quantity desired:</label>
+        <input type="text" name="quantity_textbox${i}" onkeyup="checkQuantityTextbox(this);">
+        <span id="quantity_textbox${i}_message">Enter a quantity</span>
+        `);
+            }
+        </script>
+        <br>
+        <input type="submit" value='Purchase' name="purchase_submit_button">
+    </form>
 </body>
-</html>
