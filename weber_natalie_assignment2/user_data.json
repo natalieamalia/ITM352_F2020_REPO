@@ -1,0 +1,5 @@
+{
+    "natalie": {"name": "Natalie Amalia","password": "student", "email": "na23@hawaii.edu"},
+    "dport": {"name": "Dan Port", "password": "portspassword", "email": "dport@hawaii.edu"},
+    "itm352": {"name": "ITM 352", "password": "grader", "email": "itm352@hawaii.edu"}
+}
