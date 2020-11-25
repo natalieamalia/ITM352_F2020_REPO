@@ -1,12 +1,35 @@
-<!--Natalie's Surfboard Store Login Page: allows user to enter login information and access order invoice after successful login-->
-<script> // Copied from Lab 14 and Assignment 1
 var express = require('express');
 var app = express();
 var myParser = require("body-parser");
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
+const fs = require('fs');
+const user_data_filename = 
+'user_data.json';
 
-    app.use(myParser.urlencoded({ extended: true }));
-    app.get("/register.html", function (request, response) {
-    // Returns a registration form
+//check if file exists before reading
+if(fs.existsSynce(user_data_filename)) {
+    stats = fs.statSync(user_data_filename)
+    console.log(`user_data.json has ${stats['size']} characters`)
+    var data = fs.readFileSync(user_data_filename, 'utf-8');
+    users_reg_data = JSON.parse(data);
+} 
+
+app.use(myParser.urlencoded({ extended: true }));
+
+app.get("/set_cookie", function (request, response) {
+    response.cookie('name', 'Natalie')
+});
+
+app.get("/use_cookie", function (request, response) {
+    console.log(request.cookies);
+    thename = 'ANONYMOUS';
+    if (typeof request.cookies["name"] != 'undefined') {thename = request.cookies["name"]};
+    response.send(`Welcome to the Use Cookie page ${thename}`)
+});
+
+app.get("/register", function (request, response) {
+    // Give a simple register form
     str = `
 <body>
 <form action="" method="POST">
@@ -22,12 +45,11 @@ var myParser = require("body-parser");
  });
 
 app.post("/process_register", function (request, response) {
-    // processes registration form
-    // validate user registration information
-    // if all data is valid, write to user_data.json and send to invoice
-
-// If user does not already exist, add new user registration information
-username = request.body.username;;
+    // process a simple register form
+    // validate the registration information
+    // if all data is valid, write to user_data_filename and send to invoice
+// add new user registration information
+    username = request.body.username;;
 users_reg_data[username] = {};
 users_reg_data[username].password = request.body.password;
 users_reg_data[username].email = request.body.email;
@@ -51,7 +73,7 @@ app.get("/login", function (request, response) {
  });
 
 app.post("/process_login", function (request, response) {
-// Process user login from POST and log in user if user data is valid, redirect back to login page if it is not
+// Process login form POST and redirect to logged in page if ok, back to login page if not
 console.log(request.body);
 // if username is valid, get password
 if(typeof users_reg_data [request.body.username] == 'undefined') {
@@ -64,5 +86,3 @@ if(typeof users_reg_data [request.body.username] == 'undefined') {
 else { response.send(`Hey! ${request.body.username} does not exist! :(`);
 }
 });
-
-

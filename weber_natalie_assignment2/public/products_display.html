@@ -1,14 +1,15 @@
-<script src="./product_data.js" type="text/javascript"> //links to product data
-</script>
+<script src="./product_data.js" type="text/javascript"> // links to surfboard store product data in products.js to the display.html page </script>
+
 <!DOCTYPE html>
 <html lang="en">
-<!--linking stylesheet-->
+<!--links stylesheet to display.html page-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Natalie's Surfboard Store</title>
-    <link rel="stylesheet" href="productsstyle.css">
-    <!-- styling the sheet -->
+    <title>Natalie's Surfboard Co.</title>
+    <link href="./productsstyle.css" rel="stylesheet">
+    <link rel="stylesheet">
+    <!-- styles the sheet -->
     <style>
         body {
             text-align: center;
@@ -17,32 +18,35 @@
         }
     </style>
 </head>
+
 <body>
     <form name="product_main_display" action="/process_purchase" method="POST">
+        <header>
+            <h1>Natalie's Surfboard Co.</h1>
+        </header>
     <div>
         <main>
-         <!-- script to write each products name onto the page taken from Invoice 4 and SmartPhoneProducts in class-->
-            <script>
+            <script> // Code taken from Invoice 4 and SmartPhoneProducts, script writes each product name onto the page
             for (i = 0; i < products.length; i++) {
-            document.write(`
-            <section class="item">
-            <h2>${products[i].name}</h2>
-            <br><img src="${products[i].image}">
-            <p>$${products[i].price}</p>
-            <p><em>${products[i].description}</em></p>
-            <label id="quantity${i}_label"}">Quantity</label>
-            <input type="text" placeholder="0" name="quantity${i}" 
-            onkeyup="checkQuantityTextbox(this);">
-            </section>
-            `);
-        }      
-        </script>
+                document.write(`<section class="item">
+                <h2>${products[i].name}</h2>
+                <p>${products[i].price}</p>
+                <img src= "./images/${products[i].image}" >
+                <br> 
+                <br>   
+                <label id="quantity${i}_label"}">Quantity</label>
+                <input type="text" placeholder="0" name="quantity${i}" onkeyup="checkQuantityTextbox(this);">
+                <br>
+                <br>
+                </section>
+                `);
+                }  
+            </script>
         </main>
-        </div>
-        <footer>
-        <input type="submit" value="Complete your surfboard purchase!" name="submitPurchase">
-        </footer>
-    </form>
+    </div>
+    <br>
+    <input type="submit" value="Complete your surfboard purchase!" name="submitPurchase" style="font-family : 'Times New Roman'; background-color: transparent; color:black; font-size: 30px; border-color:black; border-width: 5px;">
+   </form>
 </body>
 </html>
 
@@ -76,7 +80,7 @@
             has_errors = true; // invalid quantity
             checkQuantityTextbox(product_form[`quantity${i}`]); // points out the error 
         }
-                }
+            }
         }
     }
 }
