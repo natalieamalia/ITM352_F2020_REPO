@@ -5,8 +5,10 @@ const fs = require('fs');
 const user_data_filename = 
 'user_data.json';
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
-app.use(cookieParser());;
+app.use(cookieParser());
+app.use(session({secret: "ITM352 rocks!"}));
 
 //check if file exists before reading
 if(fs.existsSync(user_data_filename)) {
@@ -18,9 +20,11 @@ if(fs.existsSync(user_data_filename)) {
 
 app.use(myParser.urlencoded({ extended: true }));
 
-app.get("/set_cookie", function (request, response) {
-    response.cookie('name', 'Natalie')
-    response.send('cookie sent!', {maxAge: 5*1000});
+app.get("/use_session", function (request, response) {
+    console.log('session id is' + request.session.id);
+    if(typeof request.session.id != 'undefined'){
+    response.send(`Welcome, your session ID is ${request.session.id}`);
+}
 });
 
 app.get("/use_cookie", function (request, response) {
@@ -88,3 +92,4 @@ if(typeof users_reg_data [request.body.username] == 'undefined') {
 else { response.send(`Hey! ${request.body.username} does not exist! :(`);
 }
 });
+app.listen(8080, () => console.log(`listening on port 8080`)); // Listens for requests on port 8080
