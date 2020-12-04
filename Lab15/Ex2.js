@@ -65,9 +65,16 @@ fs.writeFileSync(user_data_filename, reg_info_str)
  });
 
 app.get("/login", function (request, response) {
+    console.log(request.session);
     // Give a simple login form
+    if(typeof request.session["lastLogin"] != 'undefined') {
+        lastLogin = request.session["lastLogin"]
+    } else {
+        lastLogin = 'First visit!'
+    }
     str = `
 <body>
+Last login: ${lastLogin}
 <form action="process_login" method="POST">
 <input type="text" name="username" size="40" placeholder="enter username" ><br />
 <input type="password" name="password" size="40" placeholder="enter password"><br />
@@ -85,6 +92,9 @@ console.log(request.body);
 if(typeof users_reg_data [request.body.username] == 'undefined') {
     if(request.body.password == users_reg_data[request.body.username].password) {
         response.send(`Successful login! :)`);
+        var now = new Date();
+        console.log(`${request.body.username} logged in on ${now.toString}`);
+        request.session["lastLogin"] = now.getDate() + ' ' + now.getTime();
     } else {
         response.send(`Hey! ${request.body.password} does not match the password we have for you :(`)
     }
