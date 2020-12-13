@@ -35,6 +35,7 @@ app.get("/use_session", function (request, response) {
     if(typeof request.session.id != 'undefined'){
     response.send(`Welcome, your session ID is ${request.session.id}`);
 }
+request.session.destroy();
 });
 
 app.get("/set_cookie", function (request, response) {
@@ -87,8 +88,15 @@ app.get("/login", function (request, response) {
     } else {
         lastLogin = 'First visit!'
     }
+    if(typeof request.cookies.username != 'undefined') {
+        welcome_str = request.cookies.username;
+    } else {
+        welcome_str = 'unkown user';
+    }
     str = `
 <body>
+Welcome ${welcome_str}!
+<br>
 Last login: ${lastLogin}
 <form action="process_login" method="POST">
 <input type="text" name="username" size="40" placeholder="enter username" ><br />
@@ -107,8 +115,9 @@ console.log(request.body);
 if(typeof users_reg_data [request.body.username] == 'undefined') {
     if(request.body.password == users_reg_data[request.body.username].password) {
         var now = new Date();
-        console.log(`${request.body.username} logged in on ${now.toString}`);
         request.session["lastLogin"] = now.getDate() + ' ' + now.getTime();
+        console.log(`${request.body.username} logged in on ${now.toString}`);
+        response.cookie('username', request.body.username, {maxAge: 60*1000});
         response.send(`Successful login ${request.body.username}! :)`);
     } else {
         response.send(`Hey! ${request.body.password} does not match the password we have for you :(`)

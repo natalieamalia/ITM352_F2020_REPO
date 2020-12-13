@@ -1,0 +1,136 @@
+{
+   "basics":{
+      "name":"Natalie",
+      "label":"Student",
+      "picture":"https://github.com/natalieamalia/natalieamalia.github.io/blob/master/images/PFP.jpg?raw=true",
+      "email":"na23@hawaii.edu",
+      "phone":"808-517-0134",
+      "website":"https://natalieamalia.github.io",
+      "summary":"I am an MIS and Finance student attending the Shidler College of Business at UH Mānoa. In my free time I enjoy going to the beach with my dogs, surfing, spedning time with friends and family and experiencing new things. When I don't feel like doing any of this I like to listen to good music, study, and cook.",
+      "location":{
+         "address":"2500 Campus Rd, Honolulu",
+         "postalCode":"96822",
+         "city":"Honolulu",
+         "countryCode":"USA",
+         "region":"Hawaii"
+      },
+      "profiles":[
+         {
+            "network":"github",
+            "username":"natalieamalia",
+            "url":"http://github.com/natalieamalia"
+         }
+      ],
+      "work":[
+         {
+            "company":"Hawai'i Pelvic Therapy",
+            "position":"Administrative Assistant",
+            "startDate":"2020-06-15",
+            "endDate":"Present"
+         },
+         {
+            "company":"Over Easy",
+            "position":"Server",
+            "startDate":"2019-03-01",
+            "endDate":"Present"
+         },
+         {
+            "company":"Anasia Sports Bar",
+            "position":"Cocktail Waitress",
+            "startDate":"2019-01-01",
+            "endDate":"Present"
+         }
+      ],
+      "education":[
+         {
+            "institution":"University of Hawai'i at Mānoa, Honolulu, HI",
+            "area":"Management and Information Systems and Finance",
+            "studyType":"Baccalaureate",
+            "endDate":"Present",
+            "gpa":"",
+            "courses":[
+               
+            ]
+         }
+      ],
+      "skills":[
+         {
+            "name":"Languages and Frameworks",
+            "level":"",
+            "keywords":[
+               "Java",
+               "Javascript",
+               "Meteor"
+            ]
+         },
+         {
+            "name":"Toolsets/OS",
+            "level":"",
+            "keywords":[
+               "MacOS",
+               "Unix",
+               "Git/GitHub",
+               "g++",
+               "Emacs"
+            ]
+         }
+      ],
+      "languages":[
+         {
+            "name":"English",
+            "level":"Native speaker"
+         },
+         {
+            "name":"Spanish",
+            "level":"Native speaker"
+         }
+      ],
+      "interests":[
+         {
+            "name":"Management and Information Systems",
+            "keywords":[
+               
+            ]
+         },
+         {
+            "name":"Marketing",
+            "keywords":[
+               
+            ]
+         },
+         {
+            "name":"Finance",
+            "keywords":[
+               
+            ]
+         },
+         {
+            "name":"Sustainability",
+            "keywords":[
+               
+            ]
+         },
+         {
+            "name":"Ocean",
+            "keywords":[
+               
+            ]
+         },
+         {
+            "name":"Surfing",
+            "keywords":[
+               
+            ]
+         }
+      ],
+      "references":[
+         {
+            "name":"Available upon request",
+            "referece":""
+         }
+      ]
+   }
+
+}
+           
+   
