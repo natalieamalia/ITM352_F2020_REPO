@@ -1,12 +1,13 @@
 //Natalie's Assignment 3 server
 //Code for server copied from Assignment 2 which used code from Lab 13, Lab 15, and code that was provided by Professor Port during office hour meetings and workshops.
 
-var products_data = require('./public/products.js'); //Sets ./products.js data into a variable called data and loads product data
+var session = require('express-session');
 var express = require('express'); //Server requires express to run//
 var app = express (); // loads express into variable "app" and runs the express function
 var myParser = require("body-parser"); // loads body-parser module into variable "myParser"
 const querystring = require('querystring'); // loads querystring 
 var fs = require('fs'); //loads the file system into variable fs
+var products_data = require('./public/products.js'); //Sets ./products.js data into a variable called data and loads product data
 const user_data_filename = 'user_data.json'; 
 const nodemailer = require("nodemailer");
 

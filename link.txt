@@ -1,0 +1,24 @@
+https://github.com/melanie1031/ITM352Spring20/blob/master/assignment3/public/invoice.html
+
+Assignment 3 Code Drafts
+
+// Professor Port helped me type this code 
+app.post("/process_purchase", function (request, response) {
+    //process_purchase(request.body, response);
+     POST = request.body;
+     if (typeof POST['submitPurchase'] != 'undefined') {
+        
+        let hasqty = false;
+        let hasErrors = false; // assume no errors to begin with
+        //validate each quantity 
+        for (i in products_data) { 
+            qty = POST[`quantity${i}`];
+            //check if quantity is non negative integer
+            if (qty !== '' && isNonNegInteger(qty) === false) {
+                hasErrors = true;
+            }
+            //check to see if user selected any quantities
+            if (qty > 0) {
+                hasqty = true;
+            }
+        }
