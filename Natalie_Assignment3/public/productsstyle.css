@@ -1,0 +1,82 @@
+/*Original CSS style sheet for products page using examples from SmartPhonesProducts assignments completed in class*/
+
+/* General */  
+body {
+    width: 1000px;
+    margin: 10 auto; 
+    color:black;
+    background-color: white;
+    background-image: url(./images/ocean.gif);
+}
+/* Typography */
+h1 {
+    text-align: center;
+    background-color: transparent;
+    font-family: 'Times New Roman';
+    font-size: 80px;
+    font-weight: bold;
+    font-style: italic;
+}
+h2 {
+    text-align: center;
+    border: 2px solid black;
+    background-color: transparent;
+    font-family: 'Times New Roman', serif;
+    font-size: 30px;
+}
+p {
+    border: 2px solid black;
+    background-color: white;
+    text-align: center;
+    font-family:'Times New Roman', serif;
+}
+/*  Form styling */
+/* Styling the products display */ 
+img {
+    width: 400px;
+    height: 400px;
+    padding-left: 15px;
+    
+}
+
+main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px;
+    background-color: transparent;
+    padding-left: 40px;
+}
+
+div {
+    border: 0px solid black;
+    display: flex;
+    border-radius: 25px;
+}
+
+.footer {
+    font-size: 20px;
+}
+
+label {
+    font-family:'Times New Roman', serif;
+    color:black;
+}
+/* Styling the purchase button */
+input.submit {
+    background-color: white;
+    color: white;
+    content: center;
+    width: 100px;
+    padding: 12px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+form {
+    text-align:center;
+}

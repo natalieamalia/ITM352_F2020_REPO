@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- This index.html page is the for my surf store products, built using examples from Smartphone Products WODS in class-->
+<html lang="en">
+<head>
+    <script src="./functions.js"> //loads functions.js functions
+    </script>
+    <script>
+    var products_data; //loads data from products arrays in ./products.js
+    loadJSON('get_products_data', function(response) {
+         //Parsing JSON string into object
+         products_data = JSON.parse(response); //stores data into variable
+    });
+    var this_product_key = ''
+    </script>
+    </head>
+    <body>
+        Go to: <br>
+    <script> nav_bar(this_product_key, products_data); //navbar function for generated a navbar with hyperlinks
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natalie's Surfboard Co.</title>
+    <style>
+        body {
+            text-align: center;
+            background-image: url(./images/ocean.gif);
+        }
+        img {
+            border: 1px solid #ddd;
+            /* border color */
+            /* Rounded border */
+            padding: 5px;
+            /* Some padding */
+            width: 150px;
+            /* Set a small width */
+        }
+        /* Add a hover effect (white shadow) */
+        img:hover {
+            box-shadow: 0 0 10px 10px white
+       }
+    </style>
+</head>
+<!--Creating a navigation to click on the image to enter the surfboard store-->
+<body>
+    <h1>Natalie's Surfboard Co.</h1>
+    <a href="./products_display.html"><img src="./images/boards.jpg" 
+        height= 100%  width= 100% ></a>
+    <h1>Click the image to enter!</h1>
+</body>
+</html>

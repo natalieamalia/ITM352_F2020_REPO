@@ -1,0 +1,37 @@
+/* general*/
+
+h1{
+    font-size: 40px;
+    text-align: center;
+  }
+  body{
+    background-color:lightcyan;
+  }
+  table{
+    border-collapse: collapse;
+      font-family: 'Times New Roman';  
+      font-size: 15px;
+      margin-right: 15%;
+      margin-left: 15%;
+      width: 60%;
+      
+    }
+  /*headings*/
+  
+    main {
+      font-family: 'Times New Roman';
+      text-align: center;
+      font-size: 30px;
+  
+  }
+  th, td {
+      padding: 15px;
+      text-align: center;
+      background-color:white;
+      border-color:black;
+      color:black;
+  
+    }
+    #delivery{
+      text-align: center;
+    }

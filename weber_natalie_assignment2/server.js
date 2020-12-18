@@ -6,6 +6,8 @@ const querystring = require('querystring'); // Sets querystring module as variab
 var express = require('express'); // Begins express module
 var app = express (); // Sets express as variable "app"
 var myParser = require("body-parser"); // Sets body-parser module as variable "myParser"
+var cookieParser = require('cookie-parser'); //sets require cookie parser as variable "cookieParser"
+var products_data = require('./products.json') //loads product data 
 var fs = require('fs');
 
 // Processes incoming requests
@@ -22,6 +24,15 @@ app.get("/product_data.js", function (request, response, next) {
     response.type('.js');
     response.send(str);
     });
+
+app.use(cookieParser());
+app.get("/login", function (request, response){ //responds with cookie
+    response.cookie('username', 'Natalie', {maxAge: 300*1000}).send('cookie set!'); //Sets login username, sends cookie and cookie expiration time
+});
+app.get("/logout", function (request, response){ //responds with cookie
+    username = request.cookies.username //identifies username of who is being logged out
+    response.clearCookie('username').send(`logged out ${username}`); //clears cookie upon logout
+});
 
 app.post("/process_form", function (request, response) { 
      POST = request.body;
