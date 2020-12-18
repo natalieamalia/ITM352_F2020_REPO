@@ -1,0 +1,102 @@
+<!--Natalie's Assignment 2 Login Page created using code from Lab 14 and W3 Schools "How To Create a Login Form" template (https://www.w3schools.com/howto/howto_css_login_form.asp)-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        let params = (new URL(document.location)).searchParams; //function for displaying login errors
+        window.onload = function () {
+            if (params.has('LogError')) {
+                alert('Invalid Username or Passowrd');
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <style>
+        header{ /*Styling the header*/
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        body { /*Styling the background*/
+            text-align: center;
+            background-image: url(./images/ocean.gif);
+        }
+        form{
+    text-align: center;
+        }
+    /*Styles the login input boxes*/
+    input[type=text], input[type=password], input[type=email] { /*Styling the username and password input boxes*/
+        text-align: center;
+        font-size: 15px;
+        width: 60%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border-color: #13437a;
+        color:#13437a;
+        margin-top: 25px;
+        box-sizing: border-box;
+        }
+    input[type=submit] { /*Styling the login button*/
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        font-size: 20px;
+        background-color: white;
+        border-color: #13437a;
+        color:#13437a;
+        margin-top: 25px;
+    }
+    input[type=submit] { /*Styling the New User Button*/
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        font-size: 20px;
+        background-color: white;
+        border-color: #13437a;
+        color:#13437a;
+        margin-top: 25px;
+    }
+    .topnav { /*Styling the navbar */
+      overflow: hidden;
+      background-color: white;
+    }
+    .topnav a {
+      float: left;
+      color: #13437a;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    /* Changes color on hover*/
+    .topnav a:hover {
+      background-color:whitesmoke;
+      color: black;
+    }
+</style> 
+</head>
+    <body> 
+        <div class="topnav"> 
+        <a class="active" href="./index.html">Home</a>
+        <a href="./products_display.html">Products</a>
+       </div>
+    <h1>Natalie's Surf Co. Login Page</h1>
+    <p>Please login to complete your purchase!</p>
+    <form name="login" action="process_login" method="POST">
+        <div class="container"><br>
+            <input type="text" name="username" id="username" size="40" placeholder="Enter Username" required><br>
+            <input type="password" name="password" size="40" placeholder="Enter Password" onkeyup="" required><br> 
+            <input type="submit" value="Login" name="login">   
+        </div>
+    </form>
+    <script>
+       login.action += document.location.search; // action plus the query string so info won't be lost from the intitial display page
+    </script>
+</body>
+<h2>New user?</h2>
+<body>
+    <input type="button" name="newuser" value="Register Here!"
+        onclick="window.location='./register.html' + document.location.search;">
+</body>
+
+</html>

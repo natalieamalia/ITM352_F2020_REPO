@@ -1,35 +1,41 @@
 <!--Natalie's Assignment 2 Login Page created using code from Lab 14 and W3 Schools "How To Create a Login Form" template (https://www.w3schools.com/howto/howto_css_login_form.asp)-->
-
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Natalie's Surfboard Co.</title>
-            <link href="./login.css" rel="stylesheet">
-            <link rel="stylesheet">
-        </head>
-
+<head>
+    <script>
+        let params = (new URL(document.location)).searchParams; //function for displaying login errors
+        window.onload = function () {
+            if (params.has('LogError')) {
+                alert('Invalid Username or Passowrd');
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to your account!</title> 
+        <link href="./login.css" rel="stylesheet">
+            <link rel="stylesheet"> <!--Links stylesheet to login page-->
+    </head>
     <body>
         <main>
-            <div id="login_form_div" style="display: block;">
-            <h1>Please log in to complete your surfboard purchase!</h1>
-            <form name="login_form" action="process_login" method="POST">
-            <label>Username:</label>
-            <input type="text" name="username" size="30" placeholder="enter username"
-            id="username"><br/>
-            <br>
-            <label>Password:</label>
-            <input type="password" name="password" size="30" placeholder="enter password"><br />
-            <br>
-            <input type="submit" value="Submit" id="submit">
-            <br>
-            <br>
-            <img src="">
-            </form>
-        </div>
-
-        <h2>New User? <input type="button" name="show_register" value="Click Here!"
+            <div class="topnav"> 
+            <a class="active" href="./index.html">Home</a>
+            <a href="./products_display.html">Products</a>
+            </div>
+                <h1>Login to Natalie's Surf Co.</h1>
+                <p>Please login to complete your purchase!</p>
+                <form name="login_form" action="process_login" method="POST">
+                    <div class="container"><br>
+                        <input type="text" name="username" id="username" size="40" placeholder="Enter Username" required><br>
+                        <input type="password" name="password" size="40" placeholder="Enter Password" onkeyup="" required><br> 
+                        <input type="submit" value="Login" name="login"> 
+            </div>
+        </form>
+    <script> 
+        login.action += document.location.search; // action plus the query string to pass data from the products_display page 
+    </script>
+</body>
+    <h2>New User? <input type="button" name="show_register" value="Click Here!"
         style="font-family: 'Times New Roman', Times, serif; background-color: rgb(36, 82, 119); color: white"
         onclick="show_register_form()"></h2>
         <div id="register_form_div" style="display: none;">
@@ -56,21 +62,16 @@
         <input type="submit" value="Register"
         style="font-family: 'Times New Roman', Times, serif; background-color: rgb(36, 82, 119); color: white"
         name="register_user" id="register">
-                    </form>
-                </div>
-
-            </main>
-        </body>
-
-        </html>
-
-        <script>
-
-            function show_register_form() { //makes registration or login disappear by pressing button
-                document.getElementById("register_form_div").style.display = "block";
-                document.getElementById("login_form_div").style.display = "none";
-            }
-
-            login_form.action += location.search; //when login_form action is triggered, location search
-            register_form.action += location.search; //when register_form action is triggered, location search
-        </script>
+        </form>
+    </div>
+</main>
+</body>
+</html>
+<script>
+    function show_register_form() { //makes registration or login disappear by pressing button
+    document.getElementById("register_form_div").style.display = "block";
+    document.getElementById("login_form_div").style.display = "none";
+    }
+    login_form.action += location.search; //when login_form action is triggered, location search
+    register_form.action += location.search; //when register_form action is triggered, location search
+</script>

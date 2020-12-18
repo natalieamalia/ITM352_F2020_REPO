@@ -1,7 +1,6 @@
 <!--Natalie's Invoice HTML page for Surf Co. products created using examples from ITM 352 Smartphone Products WODs and Assignment 1,2,3 Example code -->
 <script src="./" type="text/javascript"> //requests for products array from ./products.js and links product data to the invoice
 </script> 
-
 <script>
 /* Referenced form Assignment 1 and 2 examples, the following creates and displays a sales invoice from product_display.html data for Natalie's Surf Co. */
     let params = (new URL(document.location)).searchParams; // Gets data from the submit_purchase query and evluates purchase quantities
@@ -24,13 +23,12 @@
 </script>
 
 <!DOCTYPE html>
-    <html lang="en">
-    <!-- Linking of font and stylesheets-->
-    <head>
+<html lang="en">
+<!-- styling -->
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Invoice</title>
-    <link href="./invoicestylee.css" rel="stylesheet">
     <style>
         body {
         font-family: 'Times New Roman', 'Serif';
@@ -38,107 +36,130 @@
         }
     </style>
 </head>
-    <body>
-        <style>
-            body {
-            font-family: 'Times New Roman', 'Serif';
-            text-align: center;
-            }
-        </style>
-    <h1>Natalie's Surfboard Co. Invoice</h1>
+<body>
+    <style>
+    /*general*/
+    h1{
+        font-size: 35px;
+        text-align: left;
+    }
+  body { /*Styling background*/
+    text-align: center;
+    background-image: url(./images/ocean.gif);
+    }
+  table{ /*Styling table*/
+    border-collapse: collapse;
+    font-family: 'Times New Roman';  
+    font-size: 15px;
+    margin-right: 15%;
+    margin-left: 15%;
+    width: 60%;
+    }
+  /*headings*/
+    main {
+      font-family: 'Times New Roman';
+      text-align: left;
+      font-size: 15px;
+  
+  }
+  th, td {
+      padding: 15px;
+      text-align: center;
+      background-color:white;
+      border-color:black;
+      color:black;
+  
+    }
+    #delivery{
+      text-align: center;
+    }
+</style>
+<h1>Natalie's Surfboard Co. Invoice</h1>
     <main>
-        <h2>Thank you for shopping at Natalie's Surfboard Co. You'll be shredding in no time!</h2>
+        <h2>Thank you for shopping at Natalie's Surfboard Co. Here is your order invoice!</h2>
         <table border="3">
         <!-- Generates a table for the invoice displaying quantity, price, and extended price rows. Using examples from Invoice 4 in class-->
         <tbody>
         <tr><th>Item</th><th>Quantity</th><th>Price</th><th>Extended Price</th></tr>
-            <script>
-                subtotal = 0
-                for (i = 0; i < products.length; i++) {
-                  if (quantities[i] > 0) {
-                  // product row
-                  extended_price = quantities[i] * products[i].price;
-                  subtotal = extended_price + subtotal;
-                  document.write(`
+    <script>
+        subtotal = 0
+            for (i = 0; i < products.length; i++) {
+            if (quantities[i] > 0) {
+            // product row
+            extended_price = quantities[i] * products[i].price;
+            subtotal = extended_price + subtotal;
+            document.write(`
             <tr>
-              <td style="text-align: center;"
-             width="40%">${products[i].name}</td>
-              <td width="20%">${quantities[i]}</td>
-              <td width="20%">\$${products[i].price}</td>
-              <td width="20%">\$${extended_price}</td>
+            <td style="text-align: center;"
+            width="40%">${products[i].name}</td>
+            <td width="20%">${quantities[i]}</td>
+            <td width="20%">\$${products[i].price}</td>
+            <td width="20%">\$${extended_price}</td>
             </tr>
             `);
-                }
-               }
-            // From Invoice 4 WOD
-
-            //Compute tax
-                var tax_rate = 0.0575;
-                var tax = tax_rate * subtotal;
-            
-            //Compute Shipping
-            if (subtotal <= 600) {
-                shipping = 50; //$50 shipping fee
+            }
+        }
+        //Code for computing prices copied from Invoice 4 WOD
+        //Compute tax
+        var tax_rate = 0.0575;
+        var tax = tax_rate * subtotal;
+        //Compute Shipping
+        if (subtotal <= 600) {
+            shipping = 50; //$50 shipping fee
+            }
+        else if (subtotal <= 700) {
+            shipping = 60; //$60 shipping fee
               }
-              else if (subtotal <= 700) {
-                shipping = 60; //$60 shipping fee
-              }
-              else {
-                shipping = 0.08 * subtotal; // 8% of subtotal
-              }
-
-            // Compute Invoice Total
-                var total = subtotal + shipping + tax;
-            </script>
-
-        <tr>
-            <script>
-            //Generates table row for subtotal
-            var subtotal_str =
-                `<tr><td colspan="3">Subtotal</td><td>${subtotal.toFixed(2)}</td></tr>`;
-                document.write(subtotal_str);
-            </script>
-        </tr>
-
-        <tr>
-             <script> 
-            //Generates table row for tax
-            var tax_str =
-                `<tr><td colspan="3">Tax</td><td>${tax.toFixed(2)}</td></tr>`;
-                document.write(tax_str);
-            </script>
-        </tr>
-
-        <tr>
-            <script>
-            //Generates table row for shipping
-            var ship_str =
+        else {
+            shipping = 0.08 * subtotal; // 8% of subtotal
+            }
+        // Compute Invoice Total
+        var total = subtotal + shipping + tax;
+    </script>
+<tr>
+    <script>
+    //Generates table row for subtotal
+        var subtotal_str =
+             `<tr><td colspan="3">Subtotal</td><td>${subtotal.toFixed(2)}</td></tr>`; document.write(subtotal_str);
+    </script>
+</tr>
+<tr>
+    <script> 
+    //Generates table row for tax
+        var tax_str =
+            `<tr><td colspan="3">Tax</td><td>${tax.toFixed(2)}</td></tr>`;
+            document.write(tax_str);
+    </script>
+</tr>
+<tr>
+    <script>
+    //Generates table row for shipping
+        var ship_str =
             `<tr><td colspan="3">Shipping</td><td>${shipping.toFixed(2)}</td></tr>`;
             document.write(ship_str);
-            </script>
-        </tr>
-
-        <tr>
-            <script>
-            //Generates table row for total
-                var total_str =
-                `<tr><td colspan="3"><b>Total<b></td><td><b>${total.toFixed(2)}<b></td></tr>`;
-                document.write(total_str);</script></strong></td>
-            </tr>
-        <tr>
-        <td style="text-align: center;" colspan="4">
-        <strong><br>
-        OUR SHIPPING POLICY IS: A subtotal of $0 - $600.00 will be charged a $50.00 shipping fee.
-        <br>
-        A subtotal of $600.01 - $700.00 will be charged a $58.00 shipping fee.
-        /<br>
-        Subtotals over $700.01 will be charged a shipping fee of 8% of the subtotal amount.
-        </strong>
-        </td>
-        </tr>
-    </tbody>
-    </table> 
-    </div>
-    </div> 
+    </script>
+</tr>
+<tr>
+    <script>
+    //Generates table row for total
+        var total_str =
+            `<tr><td colspan="3"><b>Total<b></td><td><b>${total.toFixed(2)}<b></td></tr>`;
+            document.write(total_str);</script></strong></td>
+</tr>
+<tr>
+<td style="text-align: center;" colspan="4">
+    <strong><br>
+    OUR SHIPPING POLICY IS: A subtotal of $0 - $600.00 will be charged a $50.00 shipping fee.
+    <br>
+    A subtotal of $600.01 - $700.00 will be charged a $58.00 shipping fee.
+    <br>
+    Subtotals over $700.01 will be charged a shipping fee of 8% of the subtotal amount.
+    </strong>
+    </td>
+</tr>
+</tbody>
+</table> 
+</div>
+</div> 
 </body>
 </html>
