@@ -42,7 +42,7 @@ app.get("/logout", function (request, response){ //responds with cookie, copied 
 
 // Copied from Assignment 2 ITM 352 Workshop with Jojo's example
 // //This takes the login info from login_form on user_login.html and checks if the user exists in user_data.json. If they do and password is correct, the user is redirected to the invoice. 
-if (typeof users_data[request.body.username] != 'undefined') { //if username exists in userdata.json retrieve their data
+if (typeof users_reg_data[request.body.username] != 'undefined') { //if username exists in userdata.json retrieve their data
     if(request.body.password == users_reg_data[request.body.username].password) {
         if (typeof request.session.login == 'undefined') {
             request.session.login = {};
@@ -69,12 +69,41 @@ response.send(`This ${user_data_filename} user does not exist`); //reports 'does
 }
 });
 
-app.post("/process_registration", function (request, response) { //processes successful registration data
+app.post("/process_login", function (request, response) {
+    POST = request.body;
+    if(typeof users_reg_data[request.body.username] != 'undefined') {
+        if(request.body.password == users_reg_data[request.body.username].password) {
+            if (typeof request.session.login == 'undefined') {
+                request.session.login = {};
+            }
+            if (typeof request.session.login.username == 'undefined') {
+                request.session.login.username = [POST.username];
+            }
+            if (typeof request.session.login.password == 'undefined') {
+                request.session.login.password = [POST.password];
+            }
+          console.log(request.session);
+
+          var user_email = users_reg_data[request.body.username].email;
+
+          response.cookie('username', POST.username);
+          response.cookie('email', user_email);
+          response.redirect("./surfboards.html");
+  
+
+        } else {
+            response.send(`Hey! ${request.body.password} doesn't match what we have for you!`)
+        }
+    } else {
+    response.send(`Hey! ${user_data_filename} does not exist`);
+}
+});
+
+app.post("/process_registration", function (request, response) {
     let POST = request.body;
     var errors = [];
-
 //username validation processes a user's registration info and checks if it is valid, if data is valid it redirects user from registration to invoice
-if (typeof users_data[request.body.newuser.toLowerCase] != 'undefined') { // sends error if username already exists in user_data.json
+if (typeof users_reg_data[request.body.newuser.toLowerCase] != 'undefined') { // sends error if username already exists in user_data.json
     errors.push("Sorry, username already exists.");
 }
 if (request.body.newuser.length < 4) { //sends error if username is less than four characters
@@ -121,7 +150,6 @@ if (errors.length === 0) {
       console.log(request);
       response.redirect("./cart.html"); //redirects user to cart 
 } else {
-
   response.redirect("./registration.html"); //redirects user back to registration form
 }
 });

@@ -1,5 +1,4 @@
-var products = [{
-    "surfboards":[
+var surfboards_array = [
         {
             "name": "The Blaze",
             "price": 500.00,
@@ -30,8 +29,8 @@ var products = [{
         "image": "x-1.jpg",
         "type": "Tokoro Surfboards" 
         }
-    ],
-    "deckpads":[
+    ];
+    var deckpads_array = [
         {
             "name": "Griffin Colapinto Deckpad",
             "price": 46.00,
@@ -50,8 +49,8 @@ var products = [{
             "image": "ethanewing.jpg",
             "type": "Creatures of Leisure"
         }
-    ],
-    "surfwax": [
+    ];
+    var surfwax_array = [
         {
             "name": "Sexwax Tropic Basecoat",
             "price": 3.00,
@@ -70,6 +69,13 @@ var products = [{
             "image": "stickybumps.jpg",
             "type": "Sticky Bumps"
         },
-    ]
-    }
     ];
+    var store_products = {
+        "surfboards": surfboards_array,
+        "deckpads": deckpads_array,
+        "surfwax": surfwax_array
+    }
+
+    if(typeof module != 'undefined') {
+        module.exports.store_products = store_products;
+      }
