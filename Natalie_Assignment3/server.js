@@ -1,16 +1,17 @@
 //Natalie's Assignment 3 server
 //Code for server copied from Assignment 2 which used code from Lab 13, Lab 15, and code that was provided by Professor Port during office hour meetings and workshops.
 
-var session = require('express-session');
+var product_data = require('./public/products.js'); //Sets ./products.js data into a variable called data and loads product data
 var express = require('express'); //Server requires express to run//
-var cookieParser = require('cookie-parser');
 var app = express (); // loads express into variable "app" and runs the express function
 var myParser = require("body-parser"); // loads body-parser module into variable "myParser"
 const querystring = require('querystring'); // loads querystring 
 var fs = require('fs'); //loads the file system into variable fs
-var products_data = require('./public/products.js'); //Sets ./products.js data into a variable called data and loads product data
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 const user_data_filename = 'user_data.json'; 
 const nodemailer = require("nodemailer");
+const { send } = require('process');
 
 app.use(session({secret: "ITM352 rocks!"})); //sets up the use of sessions for the user
 app.use(cookieParser()); //sets up the use of cookies for the user data
@@ -31,46 +32,6 @@ app.all('*', function (request, response, next) {
 // Processes incoming requests
 app.post("/process_login", function (request, response) {
     POST = request.body;
-
-app.get("/login", function (request, response){ //responds with cookie, copied from Lab 15
-        response.cookie('username', 'Natalie', {maxAge: 1000*1000}).send('cookie set!'); //Sets login username, sends cookie and cookie expiration time, copied from Lab 15
-    });
-app.get("/logout", function (request, response){ //responds with cookie, copied from Lab 15
-        username = request.cookies.username; //identifies username of who is being logged out
-        response.clearCookie('username').send(`logged out ${username}`); //clears cookie upon logout
-    });
-
-// Copied from Assignment 2 ITM 352 Workshop with Jojo's example
-// //This takes the login info from login_form on user_login.html and checks if the user exists in user_data.json. If they do and password is correct, the user is redirected to the invoice. 
-if (typeof users_reg_data[request.body.username] != 'undefined') { //if username exists in userdata.json retrieve their data
-    if(request.body.password == users_reg_data[request.body.username].password) {
-        if (typeof request.session.login == 'undefined') {
-            request.session.login = {};
-        }
-        if (typeof request.session.login.username == 'undefined') {
-            request.session.login.username = [POST.username];
-        }
-        if (typeof request.session.login.password == 'undefined') {
-            request.session.login.password = [POST.password];
-        }
-      console.log(request.session);
-      response.cookie('username', POST.username);
-      alertstr = `<script> alert("Successful login!");
-                    window.history.back() </script>`; //sends an alert
-        response.send(alertstr);
-
-
-    } else { //if the password does not match 
-        response.send(`The password ${request.body.password} doesn't match your account information.`);
-    }
-} else { //if the user data is not available and does not exist
-response.send(`This ${user_data_filename} user does not exist`); //reports 'does not exist!' message in console if file does not exist
-//redirects to invoice.html upon successful login and redirects to order page producs_display.html login is unsuccessful 
-}
-});
-
-app.post("/process_login", function (request, response) {
-    POST = request.body;
     if(typeof users_reg_data[request.body.username] != 'undefined') {
         if(request.body.password == users_reg_data[request.body.username].password) {
             if (typeof request.session.login == 'undefined') {
@@ -88,7 +49,7 @@ app.post("/process_login", function (request, response) {
 
           response.cookie('username', POST.username);
           response.cookie('email', user_email);
-          response.redirect("./surfboards.html");
+          response.redirect("./login.html");
   
 
         } else {
@@ -112,17 +73,15 @@ if (request.body.newuser.length < 4) { //sends error if username is less than fo
 if (request.body.newuser.length > 25) { //sends error if username is more than 25 characters
     errors.push("Username must be less than 25 characters.");
 }
-if (request.body.newfullname.length > 30) { //if full name is more than 25 characters long
-    errors.push("Name is too long!");
-}
-if (/^[A-Za-z]+$/.test(request.body.name)) { // if full name contains characters beside letters code from Kylee Dean-Kobatake and W3schools
+if ((/^[0-9a-zA-Z]+$/).test(request.body.newuser) == false) { errors.push("Username can only contain letters or numbers"); // if username contains characters beside letters code from Kylee Dean-Kobatake and W3schools
+} 
+if (/^[A-Za-z]+$/.test(request.body.name)) { //error if full name contains characters beside letters
 } else {
-    errors.push(("Username can only contain letters or numbers.")); 
-    //sends error if username has characters other than letters 
+    errors.push("Name can only contain letters");
 }
 //password validation
 if (request.body.newpass.length < 6) { //sends error if password is less than six characters
-    errors.push("password must be more than six characters.");
+    errors.push("Password must be more than six characters.");
 }
 //confirms password
 if (request.body.newpass != request.body.newpass_confirm) { //if passwords do not match
@@ -130,27 +89,28 @@ if (request.body.newpass != request.body.newpass_confirm) { //if passwords do no
 }
 //if function is executed when there are no errors in user registration data validation from functions above
 if (errors.length === 0) { 
-    console.log('none');
-    request.query.username = reguser; //registers user if there are no errors
-    request.query.name = req.body.name;
-    response.redirect('/cart.html?' + querystring.stringify(req.query)); // redirects user to cart upon successful registration
-} 
-//if function is executed when there are no errors in user registration data validation from functions above and stores data in usrr_data.json
-if (errors.length === 0) {
-    let POST = request.body;
-    username = POST['newuser']; //stores new user info
-    users_reg_data[username] = {};
-    users_reg_data[username].name = POST['newfullname']; //stores new user's full name
-    users_reg_data[username].password = POST['newpass']; //stores user's new password
-    users_reg_data[username].email = POST['newemail']; //stores users new email
-  reg_info_str = JSON.stringify(  users_reg_data); //stringifies and stores new user data in reg_info_str string
-  fs.writeFileSync(user_data_filename, reg_info_str, "utf-8");//stores reg_info_string into file
-  query_string_object = request.query;
-      query_string_object["username"] = username; //gets username
-      console.log(request);
-      response.redirect("./cart.html"); //redirects user to cart 
+     //send data to userdata.json to be stored
+     username = POST['newuser'];
+     users_reg_data[username] = {};
+     users_reg_data[username].name = POST['newfullname'];
+     users_reg_data[username].password = POST['newpass'];
+     users_reg_data[username].email = POST['newemail'];
+   reg_info_str = JSON.stringify(users_reg_data); //parse and store new user data in reg_info_str
+   fs.writeFileSync(user_data_filename, reg_info_str, "utf-8");// write to file
+
+       response.cookie('username', POST['newuser']);
+       response.cookie('email', POST['newemail']);
+
+       alertstr = `<script> alert("Thank you for registering! Please login to continue shopping.");
+                   window.history.back() </script>`;
+
+       response.send(alertstr); // send alert
+       //response.redirect("./index.html"); // redirect to invoice with the two strings
 } else {
-  response.redirect("./registration.html"); //redirects user back to registration form
+   alertstr = `<script> alert("Error! ${errors}.");
+                   window.history.back() </script>`;
+
+       response.send(alertstr); // send alert
 }
 });
 
@@ -194,56 +154,58 @@ app.post("/go_to_invoice", function (request, response) {
 
 //Code copied from assignment 3 examples and from Professor Daniel Port during Assignment 3 workshops
 app.post("/complete_order", function (request, response) { //function to complete order after user has successfully logged in and added products to cart
-    POST = request.body;
+    var user_email = request.cookies.email;
+    var invoice_str = `Thank you for buying from Heart Depot,${user_email} ! Your order will be shipped by the next business day`;
+
+    //copied from port's example
+    var shopping_cart = request.session.cart;
+    for(product_data.store_products in product_data) {
+        for(i=0; i<product_data[product_data.store_products].length; i++) {
+            if(typeof shopping_cart[product_data.store_products] == 'undefined') continue;
+            qty = shopping_cart[product_data.store_products][i];
+            if(qty > 0) {
+              invoice_str += `<tr><td>${qty}</td><td>${product_data[store_products][i].name}</td><tr>`;
+            }
+        }
+    }
+      invoice_str += '</table>';
+
+   
     var transporter = nodemailer.createTransport({
-        host: "mail.hawaii.edu", //mailer
+        host: "mail.hawaii.edu",
         port: 25,
-        secure: false,
+        secure: false, // use TLS
         tls: {
+          // do not fail on invalid certs
           rejectUnauthorized: false
         }
       });
     
-      var user_email = 'na23@hawaii.edu';
+      var user_email = request.cookies.email;
+      console.log(user_email);
       var mailOptions = {
-        from: 'na23@hawaii.edu',
+        from: 'kkak@hawaii.edu',
         to: user_email,
-        subject: 'Your Invoice from Natalies Surf Co.',
-        html: POST
+        subject: 'Your Invoice',
+        html: invoice_str
       };
     
-      transporter.sendMail(mailOptions, function(error){ //does not send email of invoice if there are errors
+      transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-          POST += '<br>There was an error with processing your order and your invoice could not be emailed.';
+            invoice_str += '<br>There was an error and your invoice could not be emailed :(';
         } else {
-          POST += `<br>Your order invoice has been mailed to ${user_email}`; //sends email of invoice
+            invoice_str += `<br>Your invoice was mailed to ${user_email}`;
         }
-        response.send(POST);
+        response.send(invoice_str);
       });
-
 });
 
-app.post("/login_success", function (request, response) {
-    //When the user logs in successfully and clicks "add to cart" app.post will add the quantity data to the session object. Code copied with the help of Kyle Dean-Kobatake.
-    var POST = request.body;
-    console.log(POST);
-    //if quantity data is valid it is added to session, otherwise an error is returned
-    has_errors = false;
+app.post('/logout', function (request, response) { 
+    request.session.destroy(); 
+    response.clearCookie("username");
+    response.clearCookie("email");
+    response.redirect('/index.html');
 
-    if (has_errors === false) {
-        if (typeof request.session.cart == 'undefined') {
-            request.session.cart = {};
-        }
-        if (typeof request.session.cart[POST.product_key] == 'undefined') {
-            request.session.cart[POST.product_key] = [];
-        }
-        request.session.cart[POST.product_key][POST.product_index] = Number.parseInt(POST.quantity);
-        response_msg = `Added ${POST.quantity} to your cart!`;
-    }
-    response_msg = `Added ${POST.quantity} to your cart!`;
-    console.log(request.session);
-    response.json({"message":response_msg});
-    
 });
 
 // isNonNegInteger function from Lab 12 which checks if quantities entered are a non-negative integer

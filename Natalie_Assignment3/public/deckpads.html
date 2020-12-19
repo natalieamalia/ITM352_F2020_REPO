@@ -1,7 +1,7 @@
 <script src="./products.js" type="text/javascript">// imports data from products.js to the surfboards.html page 
 </script>
 <script>
-    var product_key = "deckpads";
+    var store_products = "deckpads_array"
 
     // Example POST method implementation:
     async function postData(url = '', data = {}) {
@@ -19,7 +19,7 @@
 }
 
     function add_to_cart(i) {
-    postData('./add_to_cart', { 'product_key':product_key, 'product_index':i,'quantity':document.getElementById('quantity' + i).value}).then(data => {
+    postData('./add_to_cart', { 'store_products':store_products, 'product_index':i,'quantity':document.getElementById('quantity' + i).value}).then(data => {
     console.log(data);
     document.getElementById(`quantity${i}_span`).innerHTML = data.message;
     document.getElementById(`quantity${i}`).value = 0;
@@ -56,7 +56,7 @@
         <form name="deckpads_form" action="./add_deckpads_to_cart" method="POST">
         <!-- Script that creates the surfboard displays on the page -->
         <script> // Code taken from Invoice 4 and SmartPhoneProducts, script writes each product name onto the page and loops through product data
-            for (i = 0; i < products[product_key].length; i++) {
+            for (i = 0; i < products[store_products].length; i++) {
                 document.write(`<section class="item">
                 <h2>${products[i].name}</h2>
                 <p>${products[i].price}</p>

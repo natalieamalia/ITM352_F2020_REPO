@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-        let params = (new URL(document.location)).searchParams;
-        window.onload = function () { //function for displaying registration errors
-            if (params.has('errors')) {
-                console.log("invalid");
-                alert('Fix the following errors: \n' + params.get('errors'));
-            }
-        }    
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -75,9 +66,21 @@
         <a href="./surfwax.html" style="float: left;">Surfwax</a>
         <a href="./cart.html" style="float: right;">Shopping Cart</a>
         <a href="./login.html" style="float: right;">Login</a>
+        <script>
+            // Kylee Kobatake gave me this function from stack overflow that displays username in navbar upon successful login https://stackoverflow.com/questions/10730362/get-cookie-by-name
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+                }
+                if (typeof getCookie('username') != 'undefined') {
+                console.log('working');
+                document.getElementById('logged_in').innerHTML = "Welcome" + ' ' + getCookie('username')
+                }
+        </script>
     </div>
     <div>
-        <form method="POST" action="process_register" name="Register">
+        <form name="registration_form" action="process_registration" method="POST" name="Register">
             <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+"
                 placeholder="Enter First & Last Name"><br />
             <input type="text" name="username" size="40" pattern=".[a-z0-9]{3,10}" required
@@ -90,7 +93,7 @@
             <input type="password" id="repeat_password" name="repeat_password" size="40" pattern=".{8,}" required
                 title="8 Characters Minimum" placeholder="Repeat Password"><br />
 
-            <input type="submit" value="Register" id="submit">
+            <input type="submit" value="Register" name="register_user" id="register">
         </form>
         <script>
          Register.action += document.location.search;
