@@ -1,0 +1,113 @@
+<script src="./products.js" type="text/javascript">// imports data from products.js to the surfboards.html page 
+</script>
+<script>
+    var product_key = "surfwax";
+
+    // Example POST method implementation:
+    async function postData(url = '', data = {}) {
+    
+    // Default options are marked with *
+    const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+}
+
+    function add_to_cart(i) {
+    postData('./add_to_cart', { 'product_key':product_key, 'product_index':i,'quantity':document.getElementById('quantity' + i).value}).then(data => {
+    console.log(data);
+    document.getElementById(`quantity${i}_span`).innerHTML = data.message;
+    document.getElementById(`quantity${i}`).value = 0;
+  });
+}
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./productsstyle.css" rel="stylesheet">
+    <title>Surfwax</title>
+<body> 
+    <div class="topnav"> 
+        <a class="active" href="./index.html">Home</a>
+        <a href="./surfboards.html" style="float: left;">Surfboards</a>
+        <a href="./deckpads.html" style="float: left;">Deckpads</a>
+        <a href="./surfwax.html" style="float: left;">Surfwax</a>
+        <a href="./cart.html" style="float: right;">Shopping Cart</a>
+        <a href="./login.html" style="float: right;">Login</a>
+    <script>
+    // got this function from stack overflow https://stackoverflow.com/questions/10730362/get-cookie-by-name
+        function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+        document.getElementById('logged_in').innerHTML = "Welcome" + ' ' + getCookie('username')      
+    </script>
+    </div>
+<body>
+    <div class="product_display">
+        <form name="surfwax_form" action="./add_surfwax_to_cart" method="POST">
+        <!-- Script that creates the surfboard displays on the page -->
+        <script> // Code taken from Invoice 4 and SmartPhoneProducts, script writes each product name onto the page and loops through product data
+            for (i = 0; i < products[product_key].length; i++) {
+                document.write(`<section class="item">
+                <h2>${products[i].name}</h2>
+                <p>${products[i].price}</p>
+                <img src= "./images/${products[i].image}" >
+                <br> 
+                <br>   
+                <label id="quantity${i}_label"}">Quantity</label>
+                <input type="text" placeholder="0" name="quantity${i}" onkeyup="checkQuantityTextbox(this);">
+                <input type="button" value="Add to Cart" name="add_surfwax_quantity_to_cart" onclick="add_to_cart(${i});">
+                </section>
+                `);
+                }  
+        </script>
+        </form>
+        </div>
+    </body>
+</html>
+<script>
+//isNonNegInt function referenced from Assignment 1
+ function isNonNegInt(val, returnErrors) {
+        /* This function returns true if value is a non-negative integer. Copied from Lab 12.*/
+        errors = []; // assume no errors at first
+        if (Number(val) != val) errors.push('Not a number!'); // Checks if string is a number value
+        if (val < 0) errors.push('Negative value!'); // Check if it is non-negative
+        if (parseInt(val) != val) errors.push('Not an integer!'); // Check that it is an integer
+        return returnErrors ? errors : ((errors.length == 0) ? false : true);
+    }
+//checkQuantityTextbox function referenced from Assignment 1
+ function checkQuantityTextbox(theTextbox) {
+        /*Returns text of how many items are being purchased if amount in textbox has no errors */
+        errs = isNonNegInt(theTextbox.value, true);
+        if (errs.length == 0) errs = ['You want:']; 
+        if (theTextbox.value.trim() == '') errs = ['Quantity'];
+        document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(",");
+    }
+    window.onload = function () { //Copied from Assignment 1, loads products
+        let params = (new URL(document.location)).searchParams;
+        if (params.has('submitPurchase')) {
+        has_errors = false; // assumes quantities have no errors
+        total_qty = 0;
+        //Displays name, image, and price for each product
+        for (i = 0; i < products.length; i++) {
+        if (params.has(`quantity${i}`)) { a_qty = params.get(`quantity${i}`);
+            product_form[`quantity${i}`].value = a_qty;
+            total_qty += a_qty;
+        if (!isNonNegInt(a_qty)) {
+            has_errors = true; // invalid quantity
+            checkQuantityTextbox(product_form[`quantity${i}`]); // points out the error 
+        }
+            }
+        }
+    }
+} 
+</script>

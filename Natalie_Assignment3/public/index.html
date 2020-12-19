@@ -2,21 +2,6 @@
 <!-- This index.html page is the for my surf store products, built using examples from Smartphone Products WODS in class-->
 <html lang="en">
 <head>
-    <script src="./functions.js"> //loads functions.js functions
-    </script>
-    <script>
-    var products_data; //loads data from products arrays in ./products.js
-    loadJSON('get_products_data', function(response) {
-         //Parsing JSON string into object
-         products_data = JSON.parse(response); //stores data into variable
-    });
-    var this_product_key = ''
-    </script>
-    </head>
-    <body>
-        Go to: <br>
-    <script> nav_bar(this_product_key, products_data); //navbar function for generated a navbar with hyperlinks
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Natalie's Surfboard Co.</title>
@@ -38,12 +23,53 @@
         img:hover {
             box-shadow: 0 0 10px 10px white
        }
+       .topnav { /*Styling the navbar */
+        overflow: hidden;
+        background-color: white;
+        }
+        .topnav a {
+      float: left;
+      color: #13437a;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+        }
+    /* Changes color on hover*/
+    .topnav a:hover {
+      background-color:whitesmoke;
+      color: black;
+    }
     </style>
 </head>
+<body> 
+    <div class="topnav"> 
+        <a class="active" href="./index.html">Home</a>
+        <a href="./surfboards.html" style="float: left;">Surfboards</a>
+        <a href="./deckpads.html" style="float: left;">Deckpads</a>
+        <a href="./surfwax.html" style="float: left;">Surfwax</a>
+        <a href="./cart.html" style="float: right;">Shopping Cart</a>
+        <a href="./login.html" style="float: right;">Login</a>
+    </div>
+</head>
+    <script src="./functions.js"> //loads functions.js functions
+    </script>
+    <script>
+    var products_data; //loads data from products arrays in ./products.js
+    loadJSON('get_products_data', function(response) {
+         //Parsing JSON string into object
+         products_data = JSON.parse(response); //stores data into variable
+    });
+    var this_product_key = ''
+    </script>
+    </head>
+    <body>
+    <script> nav_bar(this_product_key, products_data); //navbar function for generated a navbar with hyperlinks
+    </script>
 <!--Creating a navigation to click on the image to enter the surfboard store-->
 <body>
     <h1>Natalie's Surfboard Co.</h1>
-    <a href="./products_display.html"><img src="./images/boards.jpg" 
+    <a href="./surfboards.html"><img src="./images/boards.jpg" 
         height= 100%  width= 100% ></a>
     <h1>Click the image to enter!</h1>
 </body>

@@ -31,22 +31,45 @@ var products = [{
         "type": "Tokoro Surfboards" 
         }
     ],
-    "deckpads": [
+    "deckpads":[
         {
-            "name": "",
-            "price": 45,
-            "image": "",
-            "type": ""
+            "name": "Griffin Colapinto Deckpad",
+            "price": 46.00,
+            "image": "griffincola.jpg",
+            "type": "Creatures of Leisure"
+        },
+        {
+            "name": "Jack Freestone Deckpad",
+            "price": 42.00,
+            "image": "jack.jpg",
+            "type": "Creatures of Leisure"
+        },
+        {
+            "name": "Ethan Ewing 2020 Deckpad",
+            "price": 40.00,
+            "image": "ethanewing.jpg",
+            "type": "Creatures of Leisure"
         }
-    
     ],
-    "accessories": [
+    "surfwax": [
         {
-            "name": "",
-            "price": 25,
-            "image": "",
-            "type": ""
-        }
+            "name": "Sexwax Tropic Basecoat",
+            "price": 3.00,
+            "image": "sexwaxtropic.jpeg",
+            "type": "Mr. Zogs Sexwax"
+        },
+        {
+            "name": "Sexwax Tropic Topcoat",
+            "price": 2.50,
+            "image": "sexwaxtopcoat.jpg",
+            "type": "Mr. Zogs Sexwax"
+        },
+        {
+            "name": "Sticky Bumps",
+            "price": 2.00,
+            "image": "stickybumps.jpg",
+            "type": "Sticky Bumps"
+        },
     ]
     }
     ];

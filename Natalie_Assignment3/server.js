@@ -3,6 +3,7 @@
 
 var session = require('express-session');
 var express = require('express'); //Server requires express to run//
+var cookieParser = require('cookie-parser');
 var app = express (); // loads express into variable "app" and runs the express function
 var myParser = require("body-parser"); // loads body-parser module into variable "myParser"
 const querystring = require('querystring'); // loads querystring 
@@ -16,10 +17,10 @@ app.use(cookieParser()); //sets up the use of cookies for the user data
 app.use(myParser.urlencoded({ extended: true }));
 app.use(myParser.json());
 
-if (fs.existsSync(filename)) { //checks that filename exists
-    stats = fs.statSync(filename); //gets information from file
+if (fs.existsSync(user_data_filename)) { //checks that filename exists
+    stats = fs.statSync(user_data_filename); //gets information from file
     console.log(`user_data.json has ${stats['size']} characters`); //reports size of file if file exists
-    var data = fs.readFileSync(filename, 'utf-8');
+    var data = fs.readFileSync(user_data_filename, 'utf-8');
     users_reg_data = JSON.parse(data); //parses the data if the file exists
 } 
 

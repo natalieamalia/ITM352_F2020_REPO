@@ -32,30 +32,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="LINK STYLE SHEET" rel="stylesheet">
     <link rel="stylesheet" href="">
-    <title>Natalie's Surf Co.</title>
+    <title>Shopping Cart</title>
 </head>
+<style>
+    header{ /*Styling the header*/
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    body { /*Styling the background*/
+        text-align: center;
+        background-image: url(./images/ocean.gif);
+    }
+    form{
+    text-align: center;
+    }
+/*Styles the purchase button*/
+    input[type=submit] {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: white;
+    border-color: #13437a;
+    color:#13437a;
+    margin-top: 25px;
+}
+.topnav { /*Styling the navbar */
+  overflow: hidden;
+  background-color: white;
+}
+.topnav a {
+  float: left;
+  color: #13437a;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+/* Changes color on hover*/
+.topnav a:hover {
+  background-color:whitesmoke;
+  color: black;
+}
+</style>
 <body>
-    <div class="header">
-        <img src="LINK HEADER IMAGE">
-    </div>
-
-    <div class="navbar">
-        <!-- Code for horizontal navbar linking product pages from W3school's navbar example https://www.w3schools.com/css/css_navbar_horizontal.asp-->
-        <ul>
-            <li><a href="./index.html" style="float: left;">Home</a></li>
-            <li><a href="./products_display_page.html" style="float: left;">Clothing</a></li>
-            <li><a href="./jewelry_display.html" style="float: left;">Jewelry</a></li>
-            <li><a href="./homedecor_display.html" style="float: left;">Home Decor</a></li>
-            <li><a href="./cart.html" style="float: right;">Shopping Cart</a></li>
-            <li><a href="./login.html" style="float: right;">Login</a></li>
-        </ul>
-    </div>
-    <script> // Code for shopping cart copied from https://www.smashingmagazine.com/2014/02/create-client-side-shopping-cart/ 
-        <form id="shopping-cart" action="cart.html" method="post">
-    <table class="shopping-cart">
-        <thead>
+    <div class="topnav">
+            <a class="active" href="./index.html">Home</a>
+            <a href="./surfboards.html" style="float: left;">Surfboards</a>
+            <a href="./deckpads.html" style="float: left;">Deckpads</a>
+            <a href="./surfwax.html" style="float: left;">Surfwax</a>
+            <a href="./cart.html" style="float: right;">Shopping Cart</a>
+            <a href="./login.html" style="float: right;">Login</a>
+        </div>
+<script> // Code for shopping cart copied from https://www.smashingmagazine.com/2014/02/create-client-side-shopping-cart/ 
+<form id="shopping-cart" action="cart.html" method="post">
+<table class="shopping-cart">
+<thead>
             <tr>
                 <th scope="col">Item</th>
                 <th scope="col">Qty</th>
