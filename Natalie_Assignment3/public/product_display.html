@@ -38,11 +38,35 @@
   });
 }
 window.onload = function () {
-    if(getCookie('username')) {
-        document.getElementById('logged_in').innerHTML = "Welcome" + ' ' + getCookie('username'); //loads cookie for user and displays name in navbar
+        let params = (new URL(document.location)).searchParams; // get the query string which has the form data
+        // form was submitted so check that quantities are valid then redirect to invoice if ok.
+        if (params.has('submitPurchase')) {
+            has_errors = false; // assume quantities are valid from the start
+            total_qty = 0; // need to check if something was selected so we will look if the total > 0
+            //For every product in the array, write the product number, display its image and name, and list price
+            for (i = 0; i < products.length; i++) {
+                if (params.has(`quantity${i}`)) {
+                    a_qty = params.get(`quantity${i}`);
+                    // make textboxes sticky in case of invalid data
+                    product_form[`quantity${i}`].value = a_qty;
+                    total_qty += a_qty;
+                    if (!isNonNegInt(a_qty)) {
+                        has_errors = true; // oops, invalid quantity
+                        checkQuantityTextbox(product_form[`quantity${i}`]); // show where the error is
+                    }
+                }
+            }
+            // Now respond to errors or redirect to invoice if all is ok
+            if (has_errors) {
+                alert("Please enter only valid quantities!");
+            } else if (total_qty == 0) { // no quantity selections, just give a general alert
+                alert("Please select some quantities!");
+            } else { // all good to go!
+                window.location = `./login.html.html${document.location.search}`; //Redirects itself
+                window.stop;
+            }
+        }
     }
-     
-}
 </script>
 
 <!DOCTYPE html>
@@ -54,6 +78,7 @@ window.onload = function () {
 <body> 
     <div class="topnav"> 
         <a class="active" href="./index.html">Home</a>
+        <a href="./product_display.html">Products</a>
         <script>
             for (pk in store_products) {
                 document.write(`<a href="./product_display.html?store_products_key=${pk}" style="float: left;">${pk.charAt(0).toUpperCase() + pk.slice(1)}</a>`); //Professor Port helped me write this function which generates store product variables into navbar and generates product arrays into HTML pages

@@ -43,13 +43,17 @@
     </style>
 </head>
 <body> 
-    <div class="topnav"> 
+     <!--Links navigation bar-->
+     <div class="topnav"> 
         <a class="active" href="./index.html">Home</a>
-        <a href="./surfboards.html" style="float: left;">Surfboards</a>
-        <a href="./deckpads.html" style="float: left;">Deckpads</a>
-        <a href="./surfwax.html" style="float: left;">Surfwax</a>
+        <script>
+            for (pk in store_products) {
+                document.write(`<a href="./product_display.html?store_products_key=${pk}" style="float: left;">${pk.charAt(0).toUpperCase() + pk.slice(1)}</a>`); //Professor Port helped me write this function which generates store product variables into navbar and generates product arrays into HTML pages
+            }
+        </script>
         <a href="./cart.html" style="float: right;">Shopping Cart</a>
-        <a href="./login.html" style="float: right;">Login</a>
+        <a href="./login.html" style="float: right;" id="logged_in">Login</a>
+    </div>
         <script>
             // Kylee Kobatake gave me this function from stack overflow that displays username in navbar upon successful login https://stackoverflow.com/questions/10730362/get-cookie-by-name
             function getCookie(name) {
@@ -64,8 +68,6 @@
         </script>
     </div>
 </head>
-    <script src="./functions.js"> //loads functions.js functions
-    </script>
     <script>
     var products_data; //loads data from products arrays in ./products.js
     loadJSON('get_products_data', function(response) {
@@ -81,7 +83,7 @@
 <!--Creating a navigation to click on the image to enter the surfboard store-->
 <body>
     <h1>Natalie's Surfboard Co.</h1>
-    <a href="./surfboards.html"><img src="./images/boards.jpg" 
+    <a href="./product_display.html"><img src="./images/boards.jpg" 
         height= 100%  width= 100% ></a>
     <h1>Click the image to enter!</h1>
 </body>
