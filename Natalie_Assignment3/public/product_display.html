@@ -89,7 +89,7 @@ window.onload = function () {
     </div>
 <body>
     <div class="product_display">
-        <form name="surfboards_form" action="./add_surfboards_to_cart" method="POST">
+        <form name="surfboards_form" action="./add_products_to_cart" method="POST">
         <!-- Script that creates the surfboard displays on the page -->
         <script> // Code taken from Invoice 4 and SmartPhoneProducts, script writes each product name onto the page and loops through product data
             for (i = 0; i < products.length; i++) {
@@ -101,7 +101,7 @@ window.onload = function () {
                 <br>   
                 <label id="quantity${i}_label"}">Quantity</label>
                 <input type="text" placeholder="0" name="quantity${i}" onkeyup="checkQuantityTextbox(this);">
-                <input type="button" value="Add to Cart" name="add_surfboards_quantity_to_cart" onclick="add_to_cart(${i});">
+                <input type="button" value="Add to Cart" name="add_products_quantity_to_cart" onclick="window.location='./cart.html' + document.location.search; add_to_cart(${i});">
                 </section>
                 `);
                 }  

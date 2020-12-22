@@ -1,3 +1,36 @@
+<script>
+    window.onload = function () {
+            let params = (new URL(document.location)).searchParams; // get the query string which has the form data
+            // form was submitted so check that quantities are valid then redirect to invoice if ok.
+            if (params.has('submitPurchase')) {
+                has_errors = false; // assume quantities are valid from the start
+                total_qty = 0; // need to check if something was selected so we will look if the total > 0
+                //For every product in the array, write the product number, display its image and name, and list price
+                for (i = 0; i < products.length; i++) {
+                    if (params.has(`quantity${i}`)) {
+                        a_qty = params.get(`quantity${i}`);
+                        // make textboxes sticky in case of invalid data
+                        product_form[`quantity${i}`].value = a_qty;
+                        total_qty += a_qty;
+                        if (!isNonNegInt(a_qty)) {
+                            has_errors = true; // oops, invalid quantity
+                            checkQuantityTextbox(product_form[`quantity${i}`]); // show where the error is
+                        }
+                    }
+                }
+                // Now respond to errors or redirect to invoice if all is ok
+                if (has_errors) {
+                    alert("Please enter only valid quantities!");
+                } else if (total_qty == 0) { // no quantity selections, just give a general alert
+                    alert("Please select some quantities!");
+                } else { // all good to go!
+                    window.location = `./login.html.html${document.location.search}`; //Redirects itself
+                    window.stop;
+                }
+            }
+        }
+    </script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,27 +91,32 @@
     }
     </style>
 </head>
-<body>
-    <div class="topnav"> 
+<body> 
+     <!--Links navigation bar-->
+     <div class="topnav"> 
         <a class="active" href="./index.html">Home</a>
-        <a href="./surfboards.html" style="float: left;">Surfboards</a>
-        <a href="./deckpads.html" style="float: left;">Deckpads</a>
-        <a href="./surfwax.html" style="float: left;">Surfwax</a>
-        <a href="./cart.html" style="float: right;">Shopping Cart</a>
-        <a href="./login.html" style="float: right;">Login</a>
         <script>
-            // Kylee Kobatake gave me this function from stack overflow that displays username in navbar upon successful login https://stackoverflow.com/questions/10730362/get-cookie-by-name
-            function getCookie(name) {
-                const value = `; ${document.cookie}`;
-                const parts = value.split(`; ${name}=`);
-                if (parts.length === 2) return parts.pop().split(';').shift();
-                }
-                if (typeof getCookie('username') != 'undefined') {
-                console.log('working');
-                document.getElementById('logged_in').innerHTML = "Welcome" + ' ' + getCookie('username')
-                }
+            for (pk in store_products) {
+                document.write(`<a href="./product_display.html?store_products_key=${pk}" style="float: left;">${pk.charAt(0).toUpperCase() + pk.slice(1)}</a>`); //Professor Port helped me write this function which generates store product variables into navbar and generates product arrays into HTML pages
+            }
         </script>
+        <a href="./cart.html" style="float: right;">Shopping Cart</a>
+        <a href="./login.html" style="float: right;" id="logged_in">Login</a>
     </div>
+    <script>
+        // Kylee Kobatake gave me this function from stack overflow that displays username in navbar upon successful login https://stackoverflow.com/questions/10730362/get-cookie-by-name
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+            if (typeof getCookie('username') != 'undefined') {
+            console.log('working');
+            document.getElementById('logged_in').innerHTML = "Welcome" + ' ' + getCookie('username')
+            }
+    </script>
+</div>
+</head>
     <div>
         <form name="registration_form" action="process_registration" method="POST" name="Register">
             <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+"

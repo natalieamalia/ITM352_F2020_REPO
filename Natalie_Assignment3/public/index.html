@@ -1,3 +1,38 @@
+<script src="./products.js" type="text/javascript">// imports data from products.js to the product_display.html page 
+</script>
+<script>
+window.onload = function () {
+        let params = (new URL(document.location)).searchParams; // get the query string which has the form data
+        // form was submitted so check that quantities are valid then redirect to invoice if ok.
+        if (params.has('submitPurchase')) {
+            has_errors = false; // assume quantities are valid from the start
+            total_qty = 0; // need to check if something was selected so we will look if the total > 0
+            //For every product in the array, write the product number, display its image and name, and list price
+            for (i = 0; i < products.length; i++) {
+                if (params.has(`quantity${i}`)) {
+                    a_qty = params.get(`quantity${i}`);
+                    // make textboxes sticky in case of invalid data
+                    product_form[`quantity${i}`].value = a_qty;
+                    total_qty += a_qty;
+                    if (!isNonNegInt(a_qty)) {
+                        has_errors = true; // oops, invalid quantity
+                        checkQuantityTextbox(product_form[`quantity${i}`]); // show where the error is
+                    }
+                }
+            }
+            // Now respond to errors or redirect to invoice if all is ok
+            if (has_errors) {
+                alert("Please enter only valid quantities!");
+            } else if (total_qty == 0) { // no quantity selections, just give a general alert
+                alert("Please select some quantities!");
+            } else { // all good to go!
+                window.location = `./login.html.html${document.location.search}`; //Redirects itself
+                window.stop;
+            }
+        }
+    }
+</script>
+
 <!DOCTYPE html>
 <!-- This index.html page is the for my surf store products, built using examples from Smartphone Products WODS in class-->
 <html lang="en">
@@ -84,7 +119,7 @@
 <body>
     <h1>Natalie's Surfboard Co.</h1>
     <a href="./product_display.html"><img src="./images/boards.jpg" 
-        height= 100%  width= 100% ></a>
+        height= 100px  width= 100px ></a>
     <h1>Click the image to enter!</h1>
 </body>
 </html>

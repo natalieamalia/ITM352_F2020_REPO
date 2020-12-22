@@ -69,27 +69,99 @@
   color: black;
 }
 </style>
-<body>
-    <div class="topnav">
-            <a class="active" href="./index.html">Home</a>
-            <a href="./surfboards.html" style="float: left;">Surfboards</a>
-            <a href="./deckpads.html" style="float: left;">Deckpads</a>
-            <a href="./surfwax.html" style="float: left;">Surfwax</a>
-            <a href="./cart.html" style="float: right;">Shopping Cart</a>
-            <a href="./login.html" style="float: right;">Login</a>
-            <script>
-                // Kylee Kobatake gave me this function from stack overflow that displays username in navbar upon successful login https://stackoverflow.com/questions/10730362/get-cookie-by-name
-                function getCookie(name) {
-                    const value = `; ${document.cookie}`;
-                    const parts = value.split(`; ${name}=`);
-                    if (parts.length === 2) return parts.pop().split(';').shift();
-                    }
-                    if (typeof getCookie('username') != 'undefined') {
-                    console.log('working');
-                    document.getElementById('logged_in').innerHTML = "Welcome" + ' ' + getCookie('username')
-                    }
-            </script>
-        </div>
+<body> 
+    <!--Links navigation bar-->
+    <div class="topnav"> 
+       <a class="active" href="./index.html">Home</a>
+       <script>
+           for (pk in store_products) {
+               document.write(`<a href="./product_display.html?store_products_key=${pk}" style="float: left;">${pk.charAt(0).toUpperCase() + pk.slice(1)}</a>`); //Professor Port helped me write this function which generates store product variables into navbar and generates product arrays into HTML pages
+           }
+       </script>
+       <a href="./cart.html" style="float: right;">Shopping Cart</a>
+       <a href="./login.html" style="float: right;" id="logged_in">Login</a>
+   </div>
+   <script>
+       // Kylee Kobatake gave me this function from stack overflow that displays username in navbar upon successful login https://stackoverflow.com/questions/10730362/get-cookie-by-name
+       function getCookie(name) {
+           const value = `; ${document.cookie}`;
+           const parts = value.split(`; ${name}=`);
+           if (parts.length === 2) return parts.pop().split(';').shift();
+           }
+           if (typeof getCookie('username') != 'undefined') {
+           console.log('working');
+           document.getElementById('logged_in').innerHTML = "Welcome" + ' ' + getCookie('username')
+           }
+   </script>
+    <script>
+        subtotal = 0
+            for (i = 0; i < products.length; i++) {
+            if (quantities[i] > 0) {
+            // product row
+            extended_price = quantities[i] * products[i].price;
+            subtotal = extended_price + subtotal;
+            document.write(`
+            <tr>
+            <td style="text-align: center;"
+            width="40%">${products[i].name}</td>
+            <td width="20%">${quantities[i]}</td>
+            <td width="20%">\$${products[i].price}</td>
+            <td width="20%">\$${extended_price}</td>
+            </tr>
+            `);
+            }
+        }
+        //Code for computing prices copied from Invoice 4 WOD
+        //Compute tax
+        var tax_rate = 0.0575;
+        var tax = tax_rate * subtotal;
+        //Compute Shipping
+        if (subtotal <= 600) {
+            shipping = 50; //$50 shipping fee
+            }
+        else if (subtotal <= 700) {
+            shipping = 60; //$60 shipping fee
+              }
+        else {
+            shipping = 0.08 * subtotal; // 8% of subtotal
+            }
+        // Compute Invoice Total
+        var total = subtotal + shipping + tax;
+    </script>
+    <tr>
+        <script>
+        //Generates table row for subtotal
+            var subtotal_str =
+                 `<tr><td colspan="3">Subtotal</td><td>${subtotal.toFixed(2)}</td></tr>`; document.write(subtotal_str);
+        </script>
+    </tr>
+    <tr>
+        <script> 
+        //Generates table row for tax
+            var tax_str =
+                `<tr><td colspan="3">Tax</td><td>${tax.toFixed(2)}</td></tr>`;
+                document.write(tax_str);
+        </script>
+    </tr>
+    <tr>
+        <script>
+        //Generates table row for shipping
+            var ship_str =
+                `<tr><td colspan="3">Shipping</td><td>${shipping.toFixed(2)}</td></tr>`;
+                document.write(ship_str);
+        </script>
+    </tr>
+    <tr>
+        <script>
+        //Generates table row for total
+            var total_str =
+                `<tr><td colspan="3"><b>Total<b></td><td><b>${total.toFixed(2)}<b></td></tr>`;
+                document.write(total_str);</script></strong></td>
+    </tr>
+</tbody>
+<table>
+</div>
+</head>
         <div class="shopping-cart">
             <!-- Title -->
             <div class="title">
