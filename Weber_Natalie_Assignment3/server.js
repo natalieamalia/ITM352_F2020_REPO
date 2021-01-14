@@ -63,32 +63,6 @@ app.post("/process_login", function (request, response) {
 app.post("/process_registration", function (request, response) {
     let POST = request.body;
     var errors = [];
-//username validation processes a user's registration info and checks if it is valid, if data is valid it redirects user from registration to invoice
-if (typeof users_reg_data[request.body.newuser.toLowerCase] != 'undefined') { // sends error if username already exists in user_data.json
-    errors.push("Sorry, username already exists.");
-}
-if (request.body.newuser.length < 4) { //sends error if username is less than four characters
-    errors.push("Username must be more than four characters.");
-}
-if (request.body.newuser.length > 25) { //sends error if username is more than 25 characters
-    errors.push("Username must be less than 25 characters.");
-}
-if ((/^[0-9a-zA-Z]+$/).test(request.body.newuser) == false) { errors.push("Username can only contain letters or numbers"); // if username contains characters beside letters code from Kylee Dean-Kobatake and W3schools
-} 
-if (/^[A-Za-z]+$/.test(request.body.name)) { //error if full name contains characters beside letters
-} else {
-    errors.push("Name can only contain letters");
-}
-//password validation
-if (request.body.newpass.length < 6) { //sends error if password is less than six characters
-    errors.push("Password must be more than six characters.");
-}
-//confirms password
-if (request.body.newpass != request.body.newpass_confirm) { //if passwords do not match
-    errors.push("Passwords do not match!");
-}
-//if function is executed when there are no errors in user registration data validation from functions above
-if (errors.length === 0) { 
      //send data to userdata.json to be stored
      username = POST['newuser'];
      users_reg_data[username] = {};
@@ -106,12 +80,6 @@ if (errors.length === 0) {
 
        response.send(alertstr); // send alert
        //response.redirect("./index.html"); // redirect to invoice with the two strings
-} else {
-   alertstr = `<script> alert("Error! ${errors}.");
-                   window.history.back() </script>`;
-
-       response.send(alertstr); // send alert
-}
 });
 
 app.post("/add_to_cart", function (request, response) {
